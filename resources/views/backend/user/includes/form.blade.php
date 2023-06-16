@@ -55,4 +55,11 @@
 
 @push('scripts')
 @include('backend.theme.components.ajax-form-submit', [ 'redirectUrl' => 'admin.users.index' ])
+<script>
+    $(document).ready(function () {
+        $(".select2").select2({
+                maximumSelectionLength: 1
+            });
+        });
+</script>
 @endpush

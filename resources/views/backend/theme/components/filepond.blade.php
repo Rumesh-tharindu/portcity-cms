@@ -15,14 +15,21 @@
         }
     });
 
-    // Get a reference to the file input element
-    const inputElement = document.querySelector('.filepond');
+    // get a collection of elements with class filepond
+    const inputElements = document.querySelectorAll('input.filepond');
 
-    // Create a FilePond instance
-    const pond = FilePond.create(inputElement, {
-        chunkUploads: true,
-        onaddfilestart: () => $('.ajax-submit').prop('disabled', true),
-        onprocessfiles: () => $('.ajax-submit').prop('disabled', false),
+    // loop over input elements
+    Array.from(inputElements).forEach(inputElement => {
+
+    // create a FilePond instance at the input element location
+    FilePond.create(inputElement, {
+    chunkUploads: true,
+    onaddfilestart: () => $('.ajax-submit').prop('disabled', true),
+    onprocessfiles: () => $('.ajax-submit').prop('disabled', false),
 
     });
+
+    })
+
+
 </script>

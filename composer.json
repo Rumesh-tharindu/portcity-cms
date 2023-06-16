@@ -20,6 +20,7 @@
         "mcamara/laravel-localization": "^1.8",
         "monarobase/country-list": "^3.4",
         "owen-it/laravel-auditing": "^13.1",
+        "php-ffmpeg/php-ffmpeg": "^1.1",
         "propaganistas/laravel-phone": "^5.0",
         "rahulhaque/laravel-filepond": "^1.9",
         "rappasoft/laravel-authentication-log": "^3.0",

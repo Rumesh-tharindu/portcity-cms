@@ -19,11 +19,12 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->json('title');
-            $table->string('source');
+            $table->string('source')->nullable();
             $table->json('summary');
             $table->json('description');
-            $table->date('published_at');
+            $table->date('published_at')->nullable();
             $table->json('slug');
+            $table->boolean('featured')->default(false);
             $table->boolean('status')->default(true);
             $table->unsignedInteger('sort')->default(0)->index();
             $table->timestamps();

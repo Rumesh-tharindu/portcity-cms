@@ -3,22 +3,23 @@
 namespace App\Http\Controllers\Admin\MediaRoom;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\MediaRoom\Publication\StoreRequest;
-use App\Http\Requests\Admin\MediaRoom\Publication\UpdateRequest;
+use App\Http\Requests\Admin\MediaRoom\Gallery\StoreRequest;
+use App\Http\Requests\Admin\MediaRoom\Gallery\UpdateRequest;
 use App\Models\Category;
+use App\Models\Gallery;
 use App\Models\Publication;
 use App\Repositories\MediaRoom\CategoryRepository;
+use App\Repositories\MediaRoom\GalleryRepository;
 use App\Repositories\MediaRoom\PublicationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use RahulHaque\Filepond\Facades\Filepond;
 
-class MediaRoomController extends Controller
+class GalleryController extends Controller
 {
-    public function __construct(Publication $model, Category $category)
+    public function __construct(Gallery $model)
     {
-        $this->model = new PublicationRepository($model);
-        $this->category = new CategoryRepository($category);
+        $this->model = new GalleryRepository($model);
     }
 
     public function index(Request $request)
@@ -27,33 +28,40 @@ class MediaRoomController extends Controller
             return $this->model->dataTable();
         }
 
-        return view('backend.media-room.publication.index');
+        return view('backend.media-room.gallery.index');
     }
 
     public function create()
     {
 
-        return view('backend.media-room.publication.create', ['categories' => $this->category->active()->pluck('name', 'id')]);
+        return view('backend.media-room.gallery.create');
     }
 
     public function store(StoreRequest $request)
     {
         if ($request->ajax()) {
             try {
-                $data = $request->all();
+                ($data = $request->all());
 
                 $data['status'] = $request->status ? true : false;
 
                 if ($model = $this->model->create($data)) {
-                    if ($request->has('featured_image')) {
-                        $this->model->addMedia($model->id, $data['featured_image'], 'featured_image');
-                    }
-                    if ($request->has('slider_images')) {
-                        $fileInfo = Filepond::field($request->slider_images)->getFile();
+
+                    if ($request->has('images')) {
+                        $fileInfo = Filepond::field($request->images)->getFile();
 
                         foreach ($fileInfo as $key => $img) {
                             $customProperties['sort'] = $key;
-                            $this->model->addMedia($model->id, $img, 'slider_images', $customProperties);
+                            $this->model->addMedia($model->id, $img, 'images', $customProperties);
+                        }
+                    }
+
+                    if ($request->has('video')) {
+                        $fileInfo = Filepond::field($request->video)->getFile();
+
+                        foreach ($fileInfo as $key => $vid) {
+                            $customProperties['sort'] = $key;
+                            $this->model->addMedia($model->id, $vid, 'video', $customProperties);
                         }
                     }
 
@@ -75,9 +83,8 @@ class MediaRoomController extends Controller
 
     public function edit($id)
     {
-        return view('backend.media-room.publication.edit', [
+        return view('backend.media-room.gallery.edit', [
             'model' => $this->model->show($id),
-            'categories' => $this->category->all()->pluck('name', 'id'),
         ]);
     }
 
@@ -90,16 +97,22 @@ class MediaRoomController extends Controller
                 $data['status'] = $request->status ? true : false;
 
                 if ($this->model->update($data, $id)) {
-                    if ($request->has('featured_image')) {
-                        $this->model->addMedia($id, $data['featured_image'], 'featured_image');
-                    }
 
-                    if ($request->has('slider_images')) {
-                        $fileInfo = Filepond::field($request->slider_images)->getFile();
+                    if ($request->has('images')) {
+                        $fileInfo = Filepond::field($request->images)->getFile();
 
                         foreach ($fileInfo as $key => $img) {
                             $customProperties['sort'] = $key;
-                            $this->model->addMedia($id, $img, 'slider_images', $customProperties);
+                            $this->model->addMedia($id, $img, 'images', $customProperties);
+                        }
+                    }
+
+                    if ($request->has('video')) {
+                        $fileInfo = Filepond::field($request->video)->getFile();
+
+                        foreach ($fileInfo as $key => $vid) {
+                            $customProperties['sort'] = $key;
+                            $this->model->addMedia($id, $vid, 'video', $customProperties);
                         }
                     }
 

@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
-use App\Http\Controllers\Admin\MediaRoom\MediaRoomController;
+use App\Http\Controllers\Admin\MediaRoom\GalleryController;
+use App\Http\Controllers\Admin\MediaRoom\PublicationController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,10 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
 
     Route::group(['prefix' => 'media-room', 'as' => 'media-room.'], function () {
         //Route::resource('category', MediaRoomCategoryController::class)->except('show', 'destroy');
-        Route::resource('publication', MediaRoomController::class)->except('show');
+        Route::resource('publication', PublicationController::class)->except('show');
+
+        Route::resource('gallery', GalleryController::class)->except('show');
+
     });
 
     Route::delete('/media/delete/{media}', [MediaController::class, 'destroy'])->name('media.destroy');

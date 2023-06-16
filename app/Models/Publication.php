@@ -16,7 +16,7 @@ class Publication extends Model implements Auditable, HasMedia
 {
     use HasFactory, CommonModelTrait, \OwenIt\Auditing\Auditable, InteractsWithMedia;
 
-    protected $fillable = ['category_id', 'title', 'source', 'summary', 'description', 'slug', 'status', 'sort'];
+    protected $fillable = ['category_id', 'title', 'source', 'summary', 'description', 'published_at', 'slug', 'featured', 'status', 'sort'];
 
     public $translatable = ['title', 'summary', 'description', 'slug'];
 
@@ -37,17 +37,12 @@ class Publication extends Model implements Auditable, HasMedia
         ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued()
             ->performOnCollections('featured_image');
-        $this->addMediaConversion('preview')
-        ->fit(Manipulations::FIT_CROP, 300, 300)
-            ->nonQueued()
-            ->performOnCollections('banner_images');
     }
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('featured_image')
         ->singleFile();
-        $this->addMediaCollection('slider_images');
     }
 
     public function scopeActive($query, $status = true)

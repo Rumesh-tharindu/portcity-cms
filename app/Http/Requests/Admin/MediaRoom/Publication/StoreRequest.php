@@ -26,12 +26,12 @@ class StoreRequest extends FormRequest
     {
         return [
             'title.en' => 'required|max:100',
-            'summary.en' => 'required',
-            'description.en' => 'required',
+            'summary.en' => 'nullable',
+            'description.en' => 'nullable',
             'category_id' => 'required',
             'source' => 'nullable|url',
-            'featured_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'published_at' => 'required|date',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'published_at' => 'required|date_format:Y-m-d|before_or_equal:today',
             'slider_images.*' => Rule::filepond([
                 'nullable',
                 'image',

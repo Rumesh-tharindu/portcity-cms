@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-xs-12 col-md-6 form-group">
-            {!! Form::label('featured_image*') !!}
+            {!! Form::label('featured_image') !!}
             {!! getImagePreview($model, 'featured_image', false) !!}
             <div class="custom-file">
                 {!! Form::file('featured_image', [
@@ -85,7 +85,19 @@
 
     <div class="row">
         <div class="col-xs-12 col-md-6 form-group">
-            {!! Form::label('status', 'Status *', ['class' => 'control-label']) !!}
+            {!! Form::label('featured', 'Featured In Home page', ['class' => 'control-label']) !!}
+            {!! Form::checkbox('featured', 1, !isset($model) ? false : null, [
+            'class' => 'form-control',
+            'data-bootstrap-switch',
+            ]) !!}
+            {!! errorMessageAjax('featured') !!}
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6 form-group">
+            {!! Form::label('status', 'Status', ['class' => 'control-label']) !!}
             {!! Form::checkbox('status', 1, !isset($model) ? true : null, [
             'class' => 'form-control',
             'data-bootstrap-switch',
@@ -109,6 +121,7 @@
         $('#publishedAt').datetimepicker({
             format: 'YYYY-MM-DD',
             defaultDate: moment().format('YYYY-MM-DD'),
+            maxDate : 'now',
         });
 </script>
 @endpush

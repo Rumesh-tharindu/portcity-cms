@@ -30,7 +30,7 @@
         </li>
         @endcan
 
-        @can('admin.roles.index')
+        {{-- @can('admin.roles.index')
         <li class="nav-item">
             <a href="{{ route('admin.roles.index') }}"
                 class="nav-link @if (request()->route()->named('admin.roles.*')) active @endif">
@@ -41,7 +41,7 @@
                 </p>
             </a>
         </li>
-        @endcan
+        @endcan --}}
 
         @canany('admin.media-room.category.index', 'admin.media-room.publication.index')
         <li class="nav-item @if (request()->route()->named('admin.media-room.*')) menu-open @endif">
@@ -60,6 +60,18 @@
                         class="nav-link @if (request()->route()->named('admin.media-room.publication.*')) active @endif">
                         <i class="far fa-newspaper nav-icon"></i>
                         <p>Publications</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+            @can('admin.media-room.gallery.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.media-room.gallery.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.media-room.gallery.*')) active @endif">
+                        <i class="far fa-newspaper nav-icon"></i>
+                        <p>Gallery</p>
                     </a>
                 </li>
             </ul>
