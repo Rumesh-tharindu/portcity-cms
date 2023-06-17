@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::domain('cms.' . config('app.url'))->group(function () {
 Auth::routes([
     'register' => false, // Registration Routes...
     'reset' => true, // Password Reset Routes...
@@ -23,3 +23,4 @@ Route::redirect('/', '/login');
 
 //backend routes
 Route::prefix('admin')->as('admin.')->group(__DIR__.'/backend.php');
+});
