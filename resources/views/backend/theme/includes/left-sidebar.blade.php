@@ -46,7 +46,7 @@
         @canany('admin.media-room.category.index', 'admin.media-room.publication.index')
         <li class="nav-item @if (request()->route()->named('admin.media-room.*')) menu-open @endif">
             <a href="#" class="nav-link @if (request()->route()->named('admin.media-room.*')) active @endif">
-                <i class="nav-icon fas fa-bullhorn" aria-hidden="true"></i>
+                <i class="nav-icon fas fa-camera" aria-hidden="true"></i>
                 <p>
                     Manage Media Room
                     <i class="right fas fa-angle-left"></i>
@@ -70,7 +70,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.media-room.gallery.index') }}"
                         class="nav-link @if (request()->route()->named('admin.media-room.gallery.*')) active @endif">
-                        <i class="far fa-newspaper nav-icon"></i>
+                        <i class="far fa-image nav-icon"></i>
                         <p>Gallery</p>
                     </a>
                 </li>
