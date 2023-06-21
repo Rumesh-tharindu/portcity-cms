@@ -15,7 +15,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('admin.media-room.publication.index') }}">Publication</a>
+                                href="{{ route('admin.media-room.publication.index') }}">Publications</a>
                         </li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
