@@ -8,20 +8,20 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('public_registries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('page_id')->nullable()->index()
+            $table->foreignId('category_id')->nullable()->index()
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->json('name');
-            $table->string('section')->nullable();
+            $table->json('title');
+            $table->string('license_number')->nullable();
+            $table->json('address');
+            $table->json('description');
+            $table->string('status');
             $table->string('slug')->nullable();
-            $table->boolean('status')->default(true);
             $table->unsignedInteger('sort')->default(0)->index();
             $table->timestamps();
             $table->softDeletes();
@@ -30,11 +30,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('public_registries');
     }
 };

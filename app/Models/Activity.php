@@ -12,15 +12,26 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\SlugOptions;
 
-class Publication extends Model implements Auditable, HasMedia
+class Activity extends Model implements Auditable, HasMedia
 {
     use HasFactory, CommonModelTrait, \OwenIt\Auditing\Auditable, InteractsWithMedia;
 
-    protected $fillable = ['category_id', 'title', 'source', 'summary', 'description', 'published_at', 'slug', 'featured', 'status', 'sort'];
+    protected $fillable = [
+        'category_id',
+        'title',
+        'description',
+        'status',
+        'slug',
+        'sort'
+    ];
 
-    public $translatable = ['title', 'summary', 'description'];
+    public $translatable = [
+        'title'
+    ];
 
-    protected $casts = ['title' =>'array', 'published_at' => 'date:Y-m-d'];
+    protected $casts = [
+        'title' => 'array',
+    ];
 
     public function getSlugOptions(): SlugOptions
     {

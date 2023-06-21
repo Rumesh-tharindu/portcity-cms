@@ -8,18 +8,16 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('activities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('page_id')->nullable()->index()
+            $table->foreignId('category_id')->nullable()->index()
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->json('name');
-            $table->string('section')->nullable();
+            $table->json('title');
+            $table->json('description');
             $table->string('slug')->nullable();
             $table->boolean('status')->default(true);
             $table->unsignedInteger('sort')->default(0)->index();
@@ -30,11 +28,9 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('activities');
     }
 };

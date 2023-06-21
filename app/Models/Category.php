@@ -17,18 +17,18 @@ class Category extends Model implements Auditable, HasMedia
 {
     use HasFactory, CommonModelTrait, \OwenIt\Auditing\Auditable, InteractsWithMedia;
 
-    protected $fillable = ['name', 'page_id', 'slug', 'status', 'sort'];
+    protected $fillable = ['name', 'page_id', 'section', 'slug', 'status', 'sort'];
 
-    public $translatable = ['name', 'slug'];
+    public $translatable = ['name'];
 
     protected $casts = ['name' => 'array'];
 
     public function getSlugOptions(): SlugOptions
     {
-        return SlugOptions::createWithLocales(['en'])
-            ->generateSlugsFrom(function ($model, $locale = 'en') {
-                return "{$model->getTranslation('name', 'en')}";
-            })
+        return SlugOptions::create()
+        ->generateSlugsFrom(function ($model, $locale = 'en') {
+            return "{$model->getTranslation('name', 'en')}";
+        })
             ->saveSlugsTo('slug');
     }
 

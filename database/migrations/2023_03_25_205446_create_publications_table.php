@@ -23,7 +23,7 @@ return new class extends Migration
             $table->json('summary');
             $table->json('description');
             $table->date('published_at')->nullable();
-            $table->json('slug');
+            $table->string('slug')->nullable();
             $table->boolean('featured')->default(false);
             $table->boolean('status')->default(true);
             $table->unsignedInteger('sort')->default(0)->index();

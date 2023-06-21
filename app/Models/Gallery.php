@@ -11,12 +11,11 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Gallery extends Model implements Auditable, HasMedia
 {
-    use HasFactory, HasSlug, SoftDeletes, \OwenIt\Auditing\Auditable, InteractsWithMedia;
+    use HasFactory, SoftDeletes, \OwenIt\Auditing\Auditable, InteractsWithMedia;
 
     protected $fillable = ['year', 'slug'];
 

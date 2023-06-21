@@ -16,9 +16,12 @@ class CategoriesTableSeeder extends Seeder
     {
         $categories = [
 
-            ['id' => 1, 'page_id' =>6, 'sort' => 1, 'name' => ['en' => 'Press Releases']],
-            ['id' => 2, 'page_id' => 6, 'sort' => 2, 'name' => ['en' => 'Media Coverage']],
-            ['id' => 3, 'page_id' =>6, 'sort' => 3, 'name' => ['en' => 'Media Kit']],
+            ['page_id' =>6, 'section' => 'publication', 'sort' => 1, 'name' => ['en' => 'Press Releases']],
+            ['page_id' =>6, 'section' => 'publication', 'sort' => 2, 'name' => ['en' => 'Media Coverage']],
+            ['page_id' =>6, 'section' => 'publication', 'sort' => 3, 'name' => ['en' => 'Media Kit']],
+
+            ['page_id' => 3, 'section' => 'activity', 'sort' => 1, 'name' => ['en' => 'Social']],
+            ['page_id' => 3, 'section' => 'activity', 'sort' => 2, 'name' => ['en' => 'Recreational']],
 
         ];
 

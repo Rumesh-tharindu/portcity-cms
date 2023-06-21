@@ -14,13 +14,13 @@ class Page extends Model implements Auditable
 
     protected $fillable = ['name', 'slug', 'status', 'sort'];
 
-    public $translatable = ['name', 'slug'];
+    public $translatable = ['name'];
 
     protected $casts = ['name' => 'array'];
 
     public function getSlugOptions(): SlugOptions
     {
-        return SlugOptions::createWithLocales(['en'])
+        return SlugOptions::create()
             ->generateSlugsFrom(function ($model, $locale = 'en') {
                 return "{$model->getTranslation('name', 'en')}";
             })
