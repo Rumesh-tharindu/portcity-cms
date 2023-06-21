@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
             'title.en' => 'required',
             'license_number' => 'required|string|max:50',
             'description.en' => 'required',
-            'address' => 'required|string|max:100',
+            'address.en' => 'required|string|max:100',
             'status' => 'required',
             'sort' => 'sometimes|numeric|min:0',
         ];
@@ -40,6 +40,7 @@ class UpdateRequest extends FormRequest
             'category_id.required' => 'The type field is required.',
             'title.en.required' => 'The title field is required.',
             'description.en.required' => 'The description field is required.',
+            'address.en.required' => 'The address field is required.',
         ];
     }
 }

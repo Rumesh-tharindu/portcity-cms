@@ -1,4 +1,4 @@
-@extends('backend.theme.master', ['page' => 'Create Category'])
+@extends('backend.theme.master', ['page' => 'Create Type'])
 
 @section('content')
 
@@ -9,13 +9,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Create Category</h1>
+                    <h1>Create Type</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
                         <li class="breadcrumb-item"><a
-                                href="{{ route('admin.media-room.category.index') }}">Categories</a>
+                                href="{{ route('admin.public-registry.type.index') }}">Types</a>
                         </li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
@@ -29,10 +29,10 @@
 
         <div class="card card-tabs">
 
-            @include('backend.media-room.publication.category.includes.form', [
+            @include('backend.public-registry.type.includes.form', [
             'model' => null,
             'route' => [
-            'route' => ['admin.media-room.category.store'],
+            'route' => ['admin.public-registry.type.store'],
             'method' => 'post',
             'class' => 'ajax-form',
             'files' => true,

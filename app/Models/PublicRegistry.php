@@ -26,11 +26,15 @@ class PublicRegistry extends Model implements Auditable, HasMedia
     ];
 
     public $translatable = [
-        'title'
+        'title',
+        'description',
+        'address',
     ];
 
     protected $casts = [
         'title' => 'array',
+        'description' => 'array',
+        'address' => 'array',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -42,7 +46,7 @@ class PublicRegistry extends Model implements Auditable, HasMedia
             ->saveSlugsTo('slug');
     }
 
-    public function scopeActive($query, $status = true)
+    public function scopeActive($query, $status = 'active')
     {
         $query->where('status', $status);
     }

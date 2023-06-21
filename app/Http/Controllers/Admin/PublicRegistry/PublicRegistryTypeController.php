@@ -37,6 +37,8 @@ class PublicRegistryTypeController extends Controller
             try {
                 $data = $request->all();
 
+                $data['status'] = $request->status ? true : false;
+
                 if ($model = $this->model->create($data)) {
 
                     $request->session()->flash('success', 'Success!');
@@ -65,6 +67,8 @@ class PublicRegistryTypeController extends Controller
         if ($request->ajax()) {
             try {
                 $data = $request->all();
+
+                $data['status'] = $request->status ? true : false;
 
                 if ($this->model->update($data, $id)) {
 

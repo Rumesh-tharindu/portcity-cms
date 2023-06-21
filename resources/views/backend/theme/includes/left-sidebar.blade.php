@@ -43,6 +43,42 @@
         </li>
         @endcan --}}
 
+        @canany('admin.public-registry.type.index', 'admin.public-registry.public-registry.index')
+        <li class="nav-item @if (request()->route()->named('admin.public-registry.*')) menu-open @endif">
+            <a href="#" class="nav-link @if (request()->route()->named('admin.public-registry.*')) active @endif">
+                <i class="nav-icon fas fa-registered" aria-hidden="true"></i>
+                <p>
+                    Public Registry
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+
+            @can('admin.public-registry.type.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.public-registry.type.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.public-registry.type.*')) active @endif">
+                        <i class="far fa-list-alt nav-icon"></i>
+                        <p>Types</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+            @can('admin.public-registry.public-registry.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.public-registry.public-registry.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.public-registry.public-registry.*')) active @endif">
+                        <i class="far fa-building nav-icon"></i>
+                        <p>Registries</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+        </li>
+        @endcanany
+
         @canany('admin.media-room.category.index', 'admin.media-room.publication.index')
         <li class="nav-item @if (request()->route()->named('admin.media-room.*')) menu-open @endif">
             <a href="#" class="nav-link @if (request()->route()->named('admin.media-room.*')) active @endif">

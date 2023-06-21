@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin\PublicRegistry;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PublicRegistry\Type\StoreRequest;
-use App\Http\Requests\Admin\PublicRegistry\Type\UpdateRequest;
+use App\Http\Requests\Admin\PublicRegistry\PublicRegistry\StoreRequest;
+use App\Http\Requests\Admin\PublicRegistry\PublicRegistry\UpdateRequest;
 use App\Models\Category;
 use App\Models\PublicRegistry;
 use App\Repositories\MediaRoom\CategoryRepository;
@@ -33,7 +33,7 @@ class PublicRegistryController extends Controller
 
     public function create()
     {
-        $data['categories'] = $this->type->active();
+        $data['categories'] = $this->type->active()->pluck('name', 'id');
 
         return view('backend.public-registry.public-registry.create', $data);
     }
@@ -64,7 +64,7 @@ class PublicRegistryController extends Controller
 
     public function edit($id)
     {
-        $data['categories'] = $this->type->active();
+        $data['categories'] = $this->type->active()->pluck('name', 'id');
         $data['model'] = $this->model->show($id);
 
         return view('backend.public-registry.public-registry.edit', $data);
