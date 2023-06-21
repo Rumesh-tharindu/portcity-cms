@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\MediaRoom\Category;
+namespace App\Http\Requests\Admin\PublicRegistry\Type;
 
 use Illuminate\Foundation\Http\FormRequest;
 

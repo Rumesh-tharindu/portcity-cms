@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\MediaRoom\Category;
+namespace App\Http\Requests\Admin\PublicRegistry\PublicRegistry;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,9 +24,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.en' => 'required',
-            'page_id' => 'required',
-            'section' => 'required',
+            'category_id' => 'required',
+            'title.en' => 'required',
+            'license_number' => 'required|string|max:50',
+            'description.en' => 'required',
+            'address' => 'required|string|max:100',
+            'status' => 'required',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }
@@ -34,8 +37,9 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.en.required' => 'The name field is required.',
-            'page_id.required' => 'The page field is required.',
+            'category_id.required' => 'The type field is required.',
+            'title.en.required' => 'The title field is required.',
+            'description.en.required' => 'The description field is required.',
         ];
     }
 }
