@@ -9,7 +9,7 @@ class PublicRegistryRepository extends Repository
 {
     public function dataTable()
     {
-        return DataTables::of($this->model::with('category')->get())
+        return DataTables::of($this->model::with('category')->has('category')->get())
             ->editColumn('status', function ($model) {
                 return view('backend.public-registry.public-registry.includes.table-status', ['model' => $model]);
             })

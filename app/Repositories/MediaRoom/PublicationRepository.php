@@ -9,7 +9,7 @@ class PublicationRepository extends Repository
 {
     public function dataTable()
     {
-        return DataTables::of($this->model::with('category')->get())
+        return DataTables::of($this->model::with('category')->has('category')->get())
             ->editColumn('status', function ($model) {
                 return view('backend.media-room.publication.includes.table-status', ['model' => $model]);
             })
