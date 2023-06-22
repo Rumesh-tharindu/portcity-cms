@@ -35,7 +35,7 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'category_id.required' => 'The type field is required.',
+            'category_id.required' => 'The category field is required.',
             'title.en.required' => 'The title field is required.',
             'title.en.max' => 'The title must not be greater than :max characters.',
             'description.en.required' => 'The description field is required.',
