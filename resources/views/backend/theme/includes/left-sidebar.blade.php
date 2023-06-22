@@ -79,6 +79,19 @@
         </li>
         @endcanany
 
+        @can('admin.activity.index')
+        <li class="nav-item">
+            <a href="{{ route('admin.activity.index') }}"
+                class="nav-link @if (request()->route()->named('admin.activity.*')) active @endif">
+                <i class="nav-icon fas fa-futbol" aria-hidden="true"></i>
+                <p>
+                    Manage Activities
+
+                </p>
+            </a>
+        </li>
+        @endcan
+
         @canany('admin.media-room.category.index', 'admin.media-room.publication.index')
         <li class="nav-item @if (request()->route()->named('admin.media-room.*')) menu-open @endif">
             <a href="#" class="nav-link @if (request()->route()->named('admin.media-room.*')) active @endif">

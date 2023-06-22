@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\PublicRegistry\Type;
+namespace App\Http\Requests\Admin\Activity;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,9 +24,10 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.en' => 'required|string|max:100',
-            'page_id' => 'required',
-            'section' => 'required',
+            'category_id' => 'required',
+            'title.en' => 'required|string|max:100',
+            'description.en' => 'required',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }
@@ -34,9 +35,10 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.en.required' => 'The name field is required.',
-            'name.en.max' => 'The name must not be greater than :max characters.',
-            'page_id.required' => 'The page field is required.',
+            'category_id.required' => 'The type field is required.',
+            'title.en.required' => 'The title field is required.',
+            'title.en.max' => 'The title must not be greater than :max characters.',
+            'description.en.required' => 'The description field is required.',
         ];
     }
 }

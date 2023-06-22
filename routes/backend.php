@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Activity\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaRoom\GalleryController;
@@ -45,6 +46,8 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
 
         Route::resource('public-registry', PublicRegistryController::class)->except('show');
     });
+
+    Route::resource('activity', ActivityController::class)->except('show');
 
     Route::delete('/media/delete/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });

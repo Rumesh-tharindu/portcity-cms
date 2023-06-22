@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Admin\PublicRegistry;
+namespace App\Http\Controllers\Admin\Activity;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PublicRegistry\PublicRegistry\StoreRequest;
-use App\Http\Requests\Admin\PublicRegistry\PublicRegistry\UpdateRequest;
+use App\Http\Requests\Admin\Activity\StoreRequest;
+use App\Http\Requests\Admin\Activity\UpdateRequest;
 use App\Models\Category;
-use App\Models\PublicRegistry;
-use App\Repositories\PublicRegistry\PublicRegistryRepository;
-use App\Repositories\PublicRegistry\TypeRepository;
+use App\Models\Activity;
+use App\Repositories\Activity\ActivityRepository;
+use App\Repositories\Activity\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class PublicRegistryController extends Controller
+class ActivityController extends Controller
 {
 
-    public function __construct(Category $type, PublicRegistry $model)
+    public function __construct(Category $category, Activity $model)
     {
-        $this->type = new TypeRepository($type);
-        $this->model = new PublicRegistryRepository($model);
+        $this->category = new CategoryRepository($category);
+        $this->model = new ActivityRepository($model);
     }
 
     public function index(Request $request)
@@ -27,14 +27,14 @@ class PublicRegistryController extends Controller
             return $this->model->dataTable();
         }
 
-        return view('backend.public-registry.public-registry.index');
+        return view('backend.activity.index');
     }
 
     public function create()
     {
-        $data['categories'] = $this->type->active()->pluck('name', 'id');
+        $data['categories'] = $this->category->active()->pluck('name', 'id');
 
-        return view('backend.public-registry.public-registry.create', $data);
+        return view('backend.activity.create', $data);
     }
 
     public function store(StoreRequest $request)
@@ -43,7 +43,13 @@ class PublicRegistryController extends Controller
             try {
                 $data = $request->all();
 
+                $data['status'] = $request->status ? true : false;
+
                 if ($model = $this->model->create($data)) {
+
+                    if ($request->has('featured_image')) {
+                        $this->model->addMedia($model->id, $data['featured_image'], 'featured_image');
+                    }
 
                     $request->session()->flash('success', 'Success!');
 
@@ -63,10 +69,10 @@ class PublicRegistryController extends Controller
 
     public function edit($id)
     {
-        $data['categories'] = $this->type->active()->pluck('name', 'id');
+        $data['categories'] = $this->category->active()->pluck('name', 'id');
         $data['model'] = $this->model->show($id);
 
-        return view('backend.public-registry.public-registry.edit', $data);
+        return view('backend.activity.edit', $data);
     }
 
     public function update(UpdateRequest $request, $id)
@@ -75,7 +81,13 @@ class PublicRegistryController extends Controller
             try {
                 $data = $request->all();
 
+                $data['status'] = $request->status ? true : false;
+
                 if ($this->model->update($data, $id)) {
+
+                    if ($request->has('featured_image')) {
+                        $this->model->addMedia($id, $data['featured_image'], 'featured_image');
+                    }
 
                     $request->session()->flash('success', 'Success!');
 

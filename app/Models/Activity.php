@@ -26,7 +26,8 @@ class Activity extends Model implements Auditable, HasMedia
     ];
 
     public $translatable = [
-        'title'
+        'title',
+        'description'
     ];
 
     protected $casts = [

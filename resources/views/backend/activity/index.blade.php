@@ -1,4 +1,4 @@
-@extends('backend.theme.master', ['page'=>'Manage Registries'])
+@extends('backend.theme.master', ['page'=>'Manage Activities'])
 
 @section('content')
 
@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Registries</h1>
+                    <h1>Activities</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Registries</li>
+                        <li class="breadcrumb-item active">Activities</li>
                     </ol>
                 </div>
             </div>
@@ -29,12 +29,11 @@
 
                 <div class="card">
 
-                    @if (Route::has('admin.public-registry.public-registry.create'))
+                    @if (Route::has('admin.activity.create'))
                     <div class="row">
                         <div class="col-md-12" align="left">
                             <div class="card-header">
-                                <a class="btn btn-primary button-rectangle"
-                                    href="{{route('admin.public-registry.public-registry.create')}}"><i
+                                <a class="btn btn-primary button-rectangle" href="{{route('admin.activity.create')}}"><i
                                         class="fa fa-plus-circle"></i>&nbsp; Add New</a>
                             </div>
                         </div>
@@ -48,10 +47,8 @@
                                 <tr>
                                     <th>Id</th>
 
-                                    <th>Type</th>
+                                    <th>Category</th>
                                     <th>Title</th>
-                                    <th>License Number</th>
-                                    <th>Address</th>
                                     <th>Status</th>
                                     <th>Action</th>
 
@@ -79,13 +76,11 @@
 <script>
     drawDataTable(
         ".datatable",
-        "{{ route('admin.public-registry.public-registry.index') }}",
+        "{{ route('admin.activity.index') }}",
         [
             {data: 'id', name: 'id'},
             {data: 'category.name.en', name: 'category.name.en'},
             {data: 'title.en', name: 'title.en'},
-            {data: 'license_number', name: 'license_number'},
-            {data: 'address.en', name: 'address.en'},
             {data: 'status', name: 'status', orderable: false, searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]

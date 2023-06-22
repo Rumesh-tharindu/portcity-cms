@@ -9,7 +9,7 @@ class CategoryRepository extends Repository
 {
     public function dataTable()
     {
-        return DataTables::of($this->model::wherePageId(6)->get())
+        return DataTables::of($this->model::wherePageId(6)->whereSection('publication')->get())
             ->editColumn('status', function ($model) {
                 return view('backend.media-room.publication.category.includes.table-status', ['model' => $model]);
             })
@@ -20,7 +20,7 @@ class CategoryRepository extends Repository
 
     public function active($status = true)
     {
-        return $this->getModel()::wherePageId(6)
+        return $this->getModel()::wherePageId(6)->whereSection('publication')
             ->active($status)->orderBy('sort')
             ->get();
     }

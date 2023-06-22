@@ -264,9 +264,9 @@ return [
         //'pa'          => ['name' => 'Punjabi (Gurmukhi)',     'script' => 'Guru', 'native' => 'ਪੰਜਾਬੀ', 'regional' => 'pa_IN'],
         //'gu'          => ['name' => 'Gujarati',               'script' => 'Gujr', 'native' => 'ગુજરાતી', 'regional' => 'gu_IN'],
         //'or'          => ['name' => 'Oriya',                  'script' => 'Orya', 'native' => 'ଓଡ଼ିଆ', 'regional' => 'or_IN'],
-        'si' => ['name' => 'Sinhala',                'script' => 'Sinh', 'native' => 'සිංහල', 'regional' => 'si_LK'],
+        //'si' => ['name' => 'Sinhala',                'script' => 'Sinh', 'native' => 'සිංහල', 'regional' => 'si_LK'],
 
-        'ta' => ['name' => 'Tamil',                  'script' => 'Taml', 'native' => 'தமிழ்', 'regional' => 'ta_IN'],
+        //'ta' => ['name' => 'Tamil',                  'script' => 'Taml', 'native' => 'தமிழ்', 'regional' => 'ta_IN'],
         //'te'          => ['name' => 'Telugu',                 'script' => 'Telu', 'native' => 'తెలుగు', 'regional' => 'te_IN'],
         //'kn'          => ['name' => 'Kannada',                'script' => 'Knda', 'native' => 'ಕನ್ನಡ', 'regional' => 'kn_IN'],
         //'ml'          => ['name' => 'Malayalam',              'script' => 'Mlym', 'native' => 'മലയാളം', 'regional' => 'ml_IN'],

@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.en' => 'required',
+            'name.en' => 'required|string|max:100',
             'page_id' => 'required',
             'section' => 'required',
             'sort' => 'sometimes|numeric|min:0',
@@ -35,6 +35,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name.en.required' => 'The name field is required.',
+            'name.en.max' => 'The name must not be greater than :max characters.',
             'page_id.required' => 'The page field is required.',
         ];
     }
