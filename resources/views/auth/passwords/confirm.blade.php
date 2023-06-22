@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Password Confirm')
 @section('content')
 
 <div class="login-logo">

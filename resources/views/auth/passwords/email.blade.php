@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Reset Password Email')
 @section('content')
 
 <div class="login-box">

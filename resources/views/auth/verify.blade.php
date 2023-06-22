@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Verify Email')
 @section('content')
 
 <div class="login-logo">

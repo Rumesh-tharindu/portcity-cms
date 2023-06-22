@@ -10,9 +10,9 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }} CMS | Log in </title>
+    <title>{{ config('app.name') }} CMS | @yield('title') </title>
 
-    <link rel="shortcut icon" href="http://lb-cms.test/assets/images/logo/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('/assets/images/logo/favicon.ico') }}" type="image/x-icon">
 
     <!-- Google Font: Source Sans Pro -->
 
