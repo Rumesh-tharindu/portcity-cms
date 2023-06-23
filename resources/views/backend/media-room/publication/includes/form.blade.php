@@ -4,6 +4,16 @@
 
     {{ Form::model($model, $route) }}
 
+    <div class="row">
+        <div class="col-xs-12 col-md-6 form-group">
+            {!! Form::label('category_*', null, ['class' => 'control-label']) !!}
+            {!! Form::select('category_id', $categories, null, [
+            'placeholder' => 'Please select',
+            'class' => 'form-control select2',
+            ]) !!}
+            {!! errorMessageAjax('category_id') !!}
+        </div>
+    </div>
     <div class="tab-content">
 
         <div class="tab-pane fade active show" id="custom-tabs-en" role="tabpanel" aria-labelledby="custom-tabs-en-tab">
@@ -13,15 +23,6 @@
     </div>
 
     <div class="row">
-
-        <div class="col-xs-12 col-md-6 form-group">
-            {!! Form::label('category_*', null, ['class' => 'control-label']) !!}
-            {!! Form::select('category_id', $categories, null, [
-            'placeholder' => 'Please select',
-            'class' => 'form-control select2',
-            ]) !!}
-            {!! errorMessageAjax('category_id') !!}
-        </div>
 
         <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('featured_image') !!}
@@ -38,7 +39,7 @@
 
         </div>
 
-        <div class="col-xs-12 col-md-6 form-group">
+        <div class="col-xs-12 col-md-6 form-group not-media-kit">
             {!! Form::label('published_at', 'Published At *', ['class' => 'control-label']) !!}
             <div class="input-group date" id="publishedAt" data-target-input="nearest">
                 {!! Form::text('published_at', null, [
@@ -53,7 +54,7 @@
             {!! errorMessageAjax('published_at') !!}
         </div>
 
-        <div class="col-xs-12 col-md-6 form-group">
+        <div class="col-xs-12 col-md-6 form-group not-media-kit">
             {!! Form::label('source', null, ['class' => 'control-label']) !!}
             {!! Form::url('source', null, [
             'class' => 'form-control',
@@ -63,7 +64,7 @@
 
     </div>
 
-    <div class="row">
+    <div class="row not-media-kit">
         <div class="col-xs-12 col-md-12 ">
             {!! Form::label('slider_images') !!}
 
@@ -83,7 +84,25 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row media-kit">
+        <div class="col-xs-12 col-md-12 ">
+            {!! Form::label('pdf') !!}
+
+            {!! getImagePreview($model, 'pdf', false) !!}
+
+            {!! Form::file('pdf', [
+            'class' => 'filepond',
+            'accept' => 'application/pdf',
+            'data-allow-reorder' => true,
+            'data-max-file-size' => '200MB',
+            ]) !!}
+
+            {!! errorMessageAjax('pdf') !!}
+
+        </div>
+    </div>
+
+    <div class="row not-media-kit">
         <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('featured', 'Featured In Home page', ['class' => 'control-label']) !!}
             {!! Form::checkbox('featured', 1, !isset($model) ? false : null, [
@@ -123,5 +142,30 @@
             defaultDate: moment().format('YYYY-MM-DD'),
             maxDate : 'now',
         });
+</script>
+<script>
+    $(function() {
+        var category_value = null;
+            showHideInputs(category_value);
+
+            $('select[name=category_id]').on('select2:select', function (e) {
+                          category_value = e.params.data.element.value;
+                          console.log(category_value);
+                        showHideInputs(category_value);
+                        });
+
+            function showHideInputs(value = null) {
+            if (value === null || value.length < 1) {
+            $(".media-kit").hide();
+            $(".not-media-kit").hide();
+            } else if (value === "3") {
+            $(".media-kit").show();
+            $(".not-media-kit").hide();
+            } else {
+            $(".not-media-kit").show();
+            $(".media-kit").hide();
+            }
+            }
+    })
 </script>
 @endpush

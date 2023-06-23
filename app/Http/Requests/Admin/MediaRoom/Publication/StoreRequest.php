@@ -31,7 +31,13 @@ class StoreRequest extends FormRequest
             'category_id' => 'required',
             'source' => 'nullable|url',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'published_at' => 'required|date_format:Y-m-d|before_or_equal:today',
+            'published_at' => 'required_if:category_id,1,2|date_format:Y-m-d|before_or_equal:today',
+            'pdf' => Rule::filepond([
+                'required',
+                'file',
+                'mimes:pdf',
+                'max:204800',
+            ]),
             'slider_images.*' => Rule::filepond([
                 'nullable',
                 'image',
@@ -50,6 +56,9 @@ class StoreRequest extends FormRequest
             'summary.en.required' => 'The summary field is required.',
             'description.en.required' => 'The description field is required.',
             'category_id.required' => 'The category field is required.',
+            'published_at.required_if' => 'The published at field is required when category is Press Releases or Media Coverage.',
+            'pdf.required_if' => 'The pdf field is required when category is Media Kit.',
+
         ];
     }
 }

@@ -50,6 +50,10 @@ class PublicationController extends Controller
                     if ($request->has('featured_image')) {
                         $this->model->addMedia($model->id, $data['featured_image'], 'featured_image');
                     }
+                    if ($request->has('pdf')) {
+                        $this->model->addMedia($model->id, $data['pdf'], 'pdf');
+                    }
+
                     if ($request->has('slider_images')) {
                         $fileInfo = Filepond::field($request->slider_images)->getFile();
 
@@ -79,7 +83,7 @@ class PublicationController extends Controller
     {
         return view('backend.media-room.publication.edit', [
             'model' => $this->model->show($id),
-            'categories' => $this->category->all()->pluck('name', 'id'),
+            'categories' => $this->category->active()->pluck('name', 'id'),
         ]);
     }
 
@@ -96,6 +100,10 @@ class PublicationController extends Controller
                 if ($this->model->update($data, $id)) {
                     if ($request->has('featured_image')) {
                         $this->model->addMedia($id, $data['featured_image'], 'featured_image');
+                    }
+
+                    if ($request->has('pdf')) {
+                        $this->model->addMedia($id, $data['pdf'], 'pdf');
                     }
 
                     if ($request->has('slider_images')) {

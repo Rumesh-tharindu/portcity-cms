@@ -43,6 +43,8 @@ class Publication extends Model implements Auditable, HasMedia
     {
         $this->addMediaCollection('featured_image')
         ->singleFile();
+        $this->addMediaCollection('pdf')
+        ->singleFile();
     }
 
     public function scopeActive($query, $status = true)
