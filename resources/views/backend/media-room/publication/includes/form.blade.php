@@ -10,6 +10,7 @@
             {!! Form::select('category_id', $categories, null, [
             'placeholder' => 'Please select',
             'class' => 'form-control select2',
+            $model ? 'disabled' : ''
             ]) !!}
             {!! errorMessageAjax('category_id') !!}
         </div>
@@ -85,17 +86,18 @@
     </div>
 
     <div class="row media-kit">
-        <div class="col-xs-12 col-md-12 ">
+        <div class="col-xs-12 col-md-6 ">
             {!! Form::label('pdf') !!}
 
-            {!! getImagePreview($model, 'pdf', false) !!}
+            {!! getFilePreview($model, 'pdf', true) !!}
 
-            {!! Form::file('pdf', [
-            'class' => 'filepond',
-            'accept' => 'application/pdf',
-            'data-allow-reorder' => true,
-            'data-max-file-size' => '200MB',
-            ]) !!}
+            <div class="custom-file">
+                {!! Form::file('pdf', [
+                'class' => 'form-control custom-file-input',
+                'accept' => 'application/pdf',
+                ]) !!}
+                <label class="custom-file-label" for="pdf">Choose pdf</label>
+            </div>
 
             {!! errorMessageAjax('pdf') !!}
 
@@ -145,7 +147,7 @@
 </script>
 <script>
     $(function() {
-        var category_value = null;
+        var category_value = $('select[name=category_id]').select2().val();
             showHideInputs(category_value);
 
             $('select[name=category_id]').on('select2:select', function (e) {

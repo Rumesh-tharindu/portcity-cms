@@ -32,12 +32,12 @@ class StoreRequest extends FormRequest
             'source' => 'nullable|url',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'published_at' => 'required_if:category_id,1,2|date_format:Y-m-d|before_or_equal:today',
-            'pdf' => Rule::filepond([
-                'required',
+            'pdf' => [
+                'required_if:category_id,3',
                 'file',
                 'mimes:pdf',
                 'max:204800',
-            ]),
+            ],
             'slider_images.*' => Rule::filepond([
                 'nullable',
                 'image',

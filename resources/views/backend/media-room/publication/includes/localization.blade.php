@@ -5,7 +5,7 @@ $localeLabelOptional = getLocaleLabel($locale, false);
 @endphp
 <div class="row">
 
-    <div class="col-xs-12 col-md-12 form-group">
+    <div class="col-xs-12 col-md-6 form-group">
         {!! Form::label("title_$localeLabel") !!}
         {!! Form::text("title[$locale]", getTranslation($model, $locale, "title"), ["class" => ["form-control"]]) !!}
         {!! errorMessageAjax("title.$locale") !!}
