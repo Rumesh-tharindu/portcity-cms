@@ -20,7 +20,7 @@ class RegulationRepository extends Repository
 
     public function active($status = true)
     {
-        return $this->getModel()::active($status)->orderBy('sort')->orderBy('title')
+        return $this->getModel()::active($status)->orderBy('sort')
             ->get();
     }
 

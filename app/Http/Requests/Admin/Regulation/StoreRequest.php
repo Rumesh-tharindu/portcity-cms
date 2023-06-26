@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             'description.en' => 'required',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'pdf' => Rule::filepond([
-                'required',
+                'nullable',
                 'file',
                 'mimes:pdf',
                 'max:204800',

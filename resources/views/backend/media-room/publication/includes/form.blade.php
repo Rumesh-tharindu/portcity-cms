@@ -133,7 +133,6 @@
 
 
 @push('scripts')
-@include('backend.theme.components.editor')
 @include('backend.theme.components.filepond')
 @include('backend.theme.components.ajax-form-submit', ['redirectUrl' => 'admin.media-room.publication.index'])
 @include('backend.theme.components.ajax-media-delete')

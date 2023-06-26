@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\RulesRegulation;
+namespace App\Http\Controllers\Admin\Regulation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Regulation\StoreRequest;
@@ -9,6 +9,7 @@ use App\Models\Regulation;
 use App\Repositories\Regulation\RegulationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use RahulHaque\Filepond\Facades\Filepond;
 
 class RegulationController extends Controller
 {
@@ -41,10 +42,17 @@ class RegulationController extends Controller
 
                 $data['status'] = $request->status ? true : false;
 
+                $data['featured'] = $request->featured ? true : false;
+
                 if ($model = $this->model->create($data)) {
 
                     if ($request->has('featured_image')) {
                         $this->model->addMedia($model->id, $data['featured_image'], 'featured_image');
+                    }
+
+                    if ($request->has('pdf')) {
+                        $pdf = Filepond::field($request->pdf)->getFile();
+                        $this->model->addMedia($model->id, $pdf, 'pdf');
                     }
 
                     $request->session()->flash('success', 'Success!');
@@ -78,10 +86,17 @@ class RegulationController extends Controller
 
                 $data['status'] = $request->status ? true : false;
 
+                $data['featured'] = $request->featured ? true : false;
+
                 if ($this->model->update($data, $id)) {
 
                     if ($request->has('featured_image')) {
                         $this->model->addMedia($id, $data['featured_image'], 'featured_image');
+                    }
+
+                    if ($request->has('pdf')) {
+                        $pdf = Filepond::field($request->pdf)->getFile();
+                        $this->model->addMedia($id, $pdf, 'pdf');
                     }
 
                     $request->session()->flash('success', 'Success!');

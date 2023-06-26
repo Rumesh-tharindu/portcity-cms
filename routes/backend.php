@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MediaRoom\GalleryController;
 use App\Http\Controllers\Admin\MediaRoom\PublicationController;
 use App\Http\Controllers\Admin\PublicRegistry\PublicRegistryController;
 use App\Http\Controllers\Admin\PublicRegistry\PublicRegistryTypeController;
+use App\Http\Controllers\Admin\Regulation\RegulationController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -49,7 +50,7 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
 
     Route::resource('activity', ActivityController::class)->except('show');
 
-    Route::resource('rules-and-regualtion', RulesRegulationController::class)->except('show');
+    Route::resource('rules-and-regualtion', RegulationController::class, ['names' => 'regulation'])->except('show');
 
     Route::delete('/media/delete/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });
