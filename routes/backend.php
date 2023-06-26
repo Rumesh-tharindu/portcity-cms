@@ -49,5 +49,7 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
 
     Route::resource('activity', ActivityController::class)->except('show');
 
+    Route::resource('rules-and-regualtion', RulesRegulationController::class)->except('show');
+
     Route::delete('/media/delete/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });
