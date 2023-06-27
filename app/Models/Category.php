@@ -37,12 +37,12 @@ class Category extends Model implements Auditable, HasMedia
         $this->addMediaConversion('preview')
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued()
-            ->performOnCollections('category_featured_image');
+            ->performOnCollections('featured_image');
     }
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('category_featured_image')
+        $this->addMediaCollection('featured_image')
             ->singleFile();
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\About\FaqController;
 use App\Http\Controllers\Admin\Activity\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
@@ -51,6 +52,12 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
     Route::resource('activity', ActivityController::class)->except('show');
 
     Route::resource('rules-and-regualtion', RegulationController::class, ['names' => 'regulation'])->except('show');
+
+    Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
+        
+        Route::resource('faq', FaqController::class)->except('show');
+
+    });
 
     Route::delete('/media/delete/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });

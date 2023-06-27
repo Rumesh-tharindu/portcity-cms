@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Repositories\About;
+
+use App\Repositories\Repository;
+use Yajra\DataTables\DataTables;
+
+class FaqRepository extends Repository
+{
+    public function dataTable()
+    {
+        return DataTables::of($this->model->orderBy('sort')->get())
+            ->editColumn('status', function ($model) {
+                return view('backend.about.faq.includes.table-status', ['model' => $model]);
+            })
+            ->addColumn('action', function ($model) {
+                return view('backend.about.faq.includes.table-actions', ['model' => $model]);
+            })->toJson();
+    }
+
+    public function active($status = true)
+    {
+        return $this->getModel()::active($status)->orderBy('sort')
+            ->get();
+    }
+
+}

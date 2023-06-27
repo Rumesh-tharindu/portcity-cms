@@ -105,6 +105,31 @@
         </li>
         @endcan
 
+        @canany('admin.about.faq.index')
+        <li class="nav-item @if (request()->route()->named('admin.about.faq.*')) menu-open @endif">
+            <a href="#" class="nav-link @if (request()->route()->named('admin.about.faq.*')) active @endif">
+                <i class="nav-icon fas fa-info-circle" aria-hidden="true"></i>
+                <p>
+                    Manage About
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+
+            @can('admin.about.faq.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.about.faq.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.about.faq.*')) active @endif">
+                        <i class="far fa-question-circle nav-icon"></i>
+                        <p>FAQs</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+        </li>
+        @endcanany
+
         @canany('admin.media-room.category.index', 'admin.media-room.publication.index')
         <li class="nav-item @if (request()->route()->named('admin.media-room.*')) menu-open @endif">
             <a href="#" class="nav-link @if (request()->route()->named('admin.media-room.*')) active @endif">
