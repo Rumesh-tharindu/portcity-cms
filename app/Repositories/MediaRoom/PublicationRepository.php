@@ -9,7 +9,7 @@ class PublicationRepository extends Repository
 {
     public function dataTable()
     {
-        return DataTables::of($this->model::with('category')->has('category')->get())
+        return DataTables::of($this->model::with('category', 'media')->has('category')->get())
             ->editColumn('status', function ($model) {
                 return view('backend.media-room.publication.includes.table-status', ['model' => $model]);
             })
@@ -20,7 +20,7 @@ class PublicationRepository extends Repository
 
     public function filter($status = true)
     {
-        return $this->getModel()::with('category')->active($status)
+        return $this->getModel()::with('category', 'media')->active($status)
         ->when(request('category'), function($q){
             $q->whereRelation('category', function($q){
                 $q->active(true)->whereSlug(request('category'));
@@ -33,10 +33,16 @@ class PublicationRepository extends Repository
                 ->orWhere('summary', 'REGEXP', request('search'))
                 ->orWhere('description', 'REGEXP', request('search'));
             })
-        ->when(request('sort'), function ($q) {
-                $q->orderBy('sort', request('sort'));
+        ->when(request('featured'), function ($q) {
+                $q
+                ->whereFeatured(request('featured'));
             })
-        ->get();
+        ->when(request('year'), function ($q) {
+                $q
+                ->whereYear('published_at', request('year'));
+            })
+        ->latest('published_at')
+        ->paginate(request('per_page'));
     }
 
     public function getBySlug($slug = null)

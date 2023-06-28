@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('publications/', PublicationController::class)->only('index', 'show');
+Route::get('/publications', [PublicationController::class, 'index']);
 
+Route::get('/publication/{slug}', [PublicationController::class, 'show']);
