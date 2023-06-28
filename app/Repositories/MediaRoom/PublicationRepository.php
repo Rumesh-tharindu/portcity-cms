@@ -18,4 +18,30 @@ class PublicationRepository extends Repository
             })->toJson();
     }
 
+    public function filter($status = true)
+    {
+        return $this->getModel()::with('category')->active($status)
+        ->when(request('category'), function($q){
+            $q->whereRelation('category', function($q){
+                $q->active(true)->whereSlug(request('category'));
+            });
+        })
+        ->when(request('search'), function ($q) {
+                $q
+                ->where('title', 'REGEXP', request('search'))
+                ->orWhere('source', 'REGEXP', request('search'))
+                ->orWhere('summary', 'REGEXP', request('search'))
+                ->orWhere('description', 'REGEXP', request('search'));
+            })
+        ->when(request('sort'), function ($q) {
+                $q->orderBy('sort', request('sort'));
+            })
+        ->get();
+    }
+
+    public function getBySlug($slug = null)
+    {
+        return $this->getModel()->active(true)->whereSlug($slug)->firstOrFail();
+    }
+
  }

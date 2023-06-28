@@ -50,6 +50,7 @@ class PublicationController extends Controller
                     if ($request->has('featured_image')) {
                         $this->model->addMedia($model->id, $data['featured_image'], 'featured_image');
                     }
+                    
                     if ($request->has('pdf')) {
                         $this->model->addMedia($model->id, $data['pdf'], 'pdf');
                     }

@@ -1,8 +1,19 @@
 <?php
 
 return [
+/*
+|-------------------------------------------
+| contact email
+|-------------------------------------------
+*/
 
     'contact_email' => env('CONTACT_EMAIL'),
+
+/*
+|-------------------------------------------
+| social media links
+|-------------------------------------------
+*/
 
     'social_media_links' => [
         'facebook' => 'https://www.facebook.com/',
