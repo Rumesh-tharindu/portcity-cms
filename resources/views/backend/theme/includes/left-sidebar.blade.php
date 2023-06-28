@@ -106,8 +106,8 @@
         @endcan
 
         @canany('admin.about.faq.index')
-        <li class="nav-item @if (request()->route()->named('admin.about.faq.*')) menu-open @endif">
-            <a href="#" class="nav-link @if (request()->route()->named('admin.about.faq.*')) active @endif">
+        <li class="nav-item @if (request()->route()->named('admin.about.*')) menu-open @endif">
+            <a href="#" class="nav-link @if (request()->route()->named('admin.about.*')) active @endif">
                 <i class="nav-icon fas fa-info-circle" aria-hidden="true"></i>
                 <p>
                     Manage About
@@ -122,6 +122,43 @@
                         class="nav-link @if (request()->route()->named('admin.about.faq.*')) active @endif">
                         <i class="far fa-question-circle nav-icon"></i>
                         <p>FAQs</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+        </li>
+        @endcanany
+
+        @canany('admin.master-plan.plan.index', 'admin.master-plan.plot.index')
+        <li class="nav-item @if (request()->route()->named('admin.master-plan.*')) menu-open @endif">
+            <a href="#" class="nav-link @if (request()->route()->named('admin.master-plan.*')) active @endif">
+                <i class="nav-icon fas fa-info-circle" aria-hidden="true"></i>
+                <p>
+                    Manage Master Plan
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+
+            @can('admin.master-plan.plan.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.master-plan.plan.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.master-plan.plan.*')) active @endif">
+                        <i class="far fa-question-circle nav-icon"></i>
+                        <p>Plans</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+            @can('admin.master-plan.plot.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.master-plan.plot.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.master-plan.plot.*')) active @endif">
+                        <i class="far fa-question-circle nav-icon"></i>
+                        <p>Plots</p>
                     </a>
                 </li>
             </ul>

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\About\FaqController;
 use App\Http\Controllers\Admin\Activity\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MasterPlan\PlanController;
+use App\Http\Controllers\Admin\MasterPlan\PlotController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaRoom\GalleryController;
 use App\Http\Controllers\Admin\MediaRoom\PublicationController;
@@ -54,8 +56,15 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
     Route::resource('rules-and-regualtion', RegulationController::class, ['names' => 'regulation'])->except('show');
 
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
-        
+
         Route::resource('faq', FaqController::class)->except('show');
+
+    });
+
+    Route::group(['prefix' => 'master-plan', 'as' => 'master-plan.'], function () {
+
+        Route::resource('plan', PlanController::class)->except('show');
+        Route::resource('plot', PlotController::class)->except('show');
 
     });
 
