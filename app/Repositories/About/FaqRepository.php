@@ -18,10 +18,14 @@ class FaqRepository extends Repository
             })->toJson();
     }
 
-    public function active($status = true)
+    public function filter($status = true)
     {
-        return $this->getModel()::active($status)->orderBy('sort')
-            ->get();
+        return $this->getModel()::active($status)->when(request('search'), function ($q) {
+            $q->where(function ($q) {
+                $q->where('question', 'REGEXP', request('search'))
+                ->orWhere('answer', 'REGEXP', request('search'));
+            });
+        }) ->orderBy('sort')->get();
     }
 
 }
