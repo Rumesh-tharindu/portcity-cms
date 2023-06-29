@@ -56,7 +56,7 @@
         </div>
 
         <div class="col-xs-12 col-md-6 form-group not-media-kit">
-            {!! Form::label('source', null, ['class' => 'control-label']) !!}
+            {!! Form::label('source_url', null, ['class' => 'control-label']) !!}
             {!! Form::url('source', null, [
             'class' => 'form-control',
             ]) !!}

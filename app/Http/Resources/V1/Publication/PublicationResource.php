@@ -20,7 +20,7 @@ class PublicationResource extends JsonResource
             'title' => $this->title,
             $this->mergeWhen(in_array($this->category->slug, ['press-releases', 'media-coverage']), [
                 'newsSource' => [
-                    'source' => parse_url($this->source, PHP_URL_HOST),
+                    'source' => preg_replace( "#^[^:/.]*[:/]+#i", "", preg_replace( "{/$}", "", urldecode($this->source) )),
                     'date' => $this->published_at->format('F d, Y'),
                 ],
                 'summary' => $this->summary,
