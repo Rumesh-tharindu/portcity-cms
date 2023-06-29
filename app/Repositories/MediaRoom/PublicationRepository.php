@@ -20,7 +20,11 @@ class PublicationRepository extends Repository
 
     public function filter($status = true)
     {
-        return $this->getModel()::with('category', 'media')->active($status)
+        return $this->getModel()::with(['category' => function($q){
+            $q->active(true)->when(request('category'), function($q){
+                $q->whereSlug(request('category'));
+            });
+        }, 'media' ])->active($status)
         ->when(request('category'), function($q){
             $q->whereRelation('category', function($q){
                 $q->active(true)->whereSlug(request('category'));

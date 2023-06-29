@@ -133,7 +133,7 @@
         @canany('admin.master-plan.plan.index', 'admin.master-plan.plot.index')
         <li class="nav-item @if (request()->route()->named('admin.master-plan.*')) menu-open @endif">
             <a href="#" class="nav-link @if (request()->route()->named('admin.master-plan.*')) active @endif">
-                <i class="nav-icon fas fa-info-circle" aria-hidden="true"></i>
+                <i class="nav-icon fas fa-border-all" aria-hidden="true"></i>
                 <p>
                     Manage Master Plan
                     <i class="right fas fa-angle-left"></i>
@@ -145,7 +145,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.master-plan.plan.index') }}"
                         class="nav-link @if (request()->route()->named('admin.master-plan.plan.*')) active @endif">
-                        <i class="far fa-question-circle nav-icon"></i>
+                        <i class="far fa-circle nav-icon"></i>
                         <p>Plans</p>
                     </a>
                 </li>
@@ -157,7 +157,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.master-plan.plot.index') }}"
                         class="nav-link @if (request()->route()->named('admin.master-plan.plot.*')) active @endif">
-                        <i class="far fa-question-circle nav-icon"></i>
+                        <i class="far fa-circle nav-icon"></i>
                         <p>Plots</p>
                     </a>
                 </li>
