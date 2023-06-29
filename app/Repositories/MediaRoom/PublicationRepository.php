@@ -20,22 +20,20 @@ class PublicationRepository extends Repository
 
     public function filter($status = true)
     {
-        return $this->getModel()::with(['category' => function($q){
-            $q->active(true)->when(request('category'), function($q){
-                $q->whereSlug(request('category'));
-            });
-        }, 'media' ])->active($status)
+        return $this->getModel()::active($status)->with(['category' , 'media' ])
         ->when(request('category'), function($q){
             $q->whereRelation('category', function($q){
                 $q->active(true)->whereSlug(request('category'));
             });
         })
         ->when(request('search'), function ($q) {
-                $q
-                ->where('title', 'REGEXP', request('search'))
-                ->orWhere('source', 'REGEXP', request('search'))
-                ->orWhere('summary', 'REGEXP', request('search'))
-                ->orWhere('description', 'REGEXP', request('search'));
+                $q->where(function($q){
+                    $q->where('title', 'REGEXP', request('search'))
+                    ->orWhere('source', 'REGEXP', request('search'))
+                    ->orWhere('summary', 'REGEXP', request('search'))
+                    ->orWhere('description', 'REGEXP', request('search'));
+                });
+
             })
         ->when(request('featured'), function ($q) {
                 $q
