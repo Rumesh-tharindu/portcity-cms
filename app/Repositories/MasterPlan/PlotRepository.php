@@ -23,10 +23,16 @@ class PlotRepository extends Repository
         return $this->getModel()::active($status)->with(['plan', 'media'])->when(request('search'), function ($q) {
             $q->where(function ($q) {
                 $q->where('title', 'REGEXP', request('search'))
-                ->orWhere('description', 'REGEXP', request('search'));
+                ->orWhere('description', 'REGEXP', request('search'))
+                ->orWhere('plot_number', 'REGEXP', request('search'));
             });
         })
             ->orderBy('title')->get();
+    }
+
+    public function getBySlug($slug = null)
+    {
+        return $this->getModel()->active(true)->whereSlug($slug)->firstOrFail();
     }
 
 }

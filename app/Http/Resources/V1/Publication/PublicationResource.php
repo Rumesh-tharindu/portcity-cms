@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Publication;
 
+use App\Http\Resources\V1\Category\CategoryResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +17,7 @@ class PublicationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category' => $this->category->name,
+            'category' => new CategoryResource($this->whenLoaded('category')),
             'title' => $this->title,
             $this->mergeWhen(in_array($this->category->slug, ['press-releases', 'media-coverage']), [
                 'newsSource' => [

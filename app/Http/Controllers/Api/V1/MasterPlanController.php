@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\MasterPlan\PlanCollection;
+use App\Http\Resources\V1\MasterPlan\PlanResource;
 use App\Models\Plan;
 use App\Repositories\MasterPlan\PlanRepository;
 
@@ -23,7 +24,7 @@ class MasterPlanController extends Controller
     public function show($slug)
     {
 
-        return new PlanCollection($this->model->getBySlug($slug));
+        return new PlanResource($this->model->getBySlug($slug)->loadMissing('plots'));
     }
 
 }

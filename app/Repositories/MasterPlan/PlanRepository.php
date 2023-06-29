@@ -36,7 +36,7 @@ class PlanRepository extends Repository
 
     public function getBySlug($slug = null)
     {
-        return $this->getModel()->with('plots')->active(true)->whereSlug($slug)->firstOrFail();
+        return $this->getModel()->active(true)->whereSlug($slug)->firstOrFail();
     }
 
 }

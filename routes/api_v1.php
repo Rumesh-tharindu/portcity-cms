@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\MasterPlanController;
+use App\Http\Controllers\Api\V1\PlotController;
 use App\Http\Controllers\Api\V1\PublicationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,6 @@ Route::get('/publication/{slug}', [PublicationController::class, 'show']);
 
 Route::get('/master-plans', [MasterPlanController::class, 'index']);
 Route::get('/master-plan/{slug}', [MasterPlanController::class, 'show']);
+
+Route::get('/plots', [PlotController::class, 'index']);
+Route::get('/plot/{slug}', [PlotController::class, 'show']);

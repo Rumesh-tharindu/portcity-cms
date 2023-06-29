@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Resources\V1\MasterPlan;
+namespace App\Http\Resources\V1\Category;
 
+use App\Http\Resources\V1\Publication\PublicationResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PlanResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +17,10 @@ class PlanResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'map_image' => $this->getFirstMediaUrl('map_image'),
+            'name' => $this->name,
+            //'featured_image' => $this->getFirstMediaUrl('featured_image'),
             'slug' => $this->slug,
-            'plots' => PlotResource::collection($this->whenLoaded('plots')),
+            'publications' => new PublicationResource($this->whenLoaded('publications')),
             //'sort' => $this->sort,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

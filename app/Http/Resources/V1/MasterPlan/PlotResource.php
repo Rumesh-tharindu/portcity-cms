@@ -16,7 +16,7 @@ class PlotResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'plan' => $this->plan->title,
+            'plan' => new PlanResource($this->whenLoaded('plan')),
             'plot_number' => $this->plot_number,
             'title' => $this->title,
             'description' => $this->description,

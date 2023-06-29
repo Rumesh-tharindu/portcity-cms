@@ -24,7 +24,7 @@ class PublicationController extends Controller
     public function show($slug)
     {
 
-        return new PublicationResource($this->model->getBySlug($slug));
+        return new PublicationResource($this->model->getBySlug($slug)->loadMissing('category'));
     }
 
 }
