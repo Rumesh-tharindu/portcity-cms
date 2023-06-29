@@ -20,7 +20,7 @@ class PublicationResource extends JsonResource
             'title' => $this->title,
             $this->mergeWhen(in_array($this->category->slug, ['press-releases', 'media-coverage']), [
                 'newsSource' => [
-                    'source' => $this->source,
+                    'source' => parse_url($this->source)['host'],
                     'date' => $this->published_at->format('F d, Y'),
                 ],
                 'summary' => $this->summary,
