@@ -50,4 +50,9 @@ class Plan extends Model implements Auditable, HasMedia
         $query->where('status', $status);
     }
 
+    public function plots()
+    {
+        return $this->hasMany(Plot::class);
+    }
+
 }

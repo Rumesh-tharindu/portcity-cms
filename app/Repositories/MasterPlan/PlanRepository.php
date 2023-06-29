@@ -18,10 +18,25 @@ class PlanRepository extends Repository
             })->toJson();
     }
 
-    public function active($status = true)
-    {
+    public function active($status = true){
         return $this->getModel()::active($status)->orderBy('sort')->orderBy('title')
-            ->get();
+       ->get();
+    }
+
+    public function filter($status = true)
+    {
+       return $this->getModel()::active($status)->with(['plots', 'media' ])->when(request('search'), function ($q) {
+            $q->where(function ($q) {
+                $q->where('title', 'REGEXP', request('search'))
+                    ->orWhere('description', 'REGEXP', request('search'));
+            });
+        })
+            ->orderBy('title')->get();
+    }
+
+    public function getBySlug($slug = null)
+    {
+        return $this->getModel()->with('plots')->active(true)->whereSlug($slug)->firstOrFail();
     }
 
 }
