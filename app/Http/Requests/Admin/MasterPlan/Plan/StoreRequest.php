@@ -26,7 +26,6 @@ class StoreRequest extends FormRequest
         return [
             'title.en' => 'required|string|max:100',
             'description.en' => 'required',
-            'map_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }

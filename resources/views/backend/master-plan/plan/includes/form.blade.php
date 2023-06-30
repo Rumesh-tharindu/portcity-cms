@@ -13,33 +13,6 @@
     </div>
 
     <div class="row">
-
-        <div class="col-xs-12 col-md-6 form-group">
-            {!! Form::label('map_image_*') !!}
-            {!! getImagePreview($model, 'map_image', true) !!}
-            <div class="custom-file">
-                {!! Form::file('map_image', [
-                'class' => 'form-control custom-file-input',
-                'accept' => 'image/jpeg,image/jpg,image/png',
-                ]) !!}
-                <label class="custom-file-label" for="map_image">Choose image</label>
-            </div>
-
-            {!! errorMessageAjax('map_image') !!}
-
-        </div>
-
-        {{-- <div class="col-xs-12 col-md-6 form-group">
-            {!! Form::label('sort_*') !!}
-            {!! Form::number('sort', null, [
-            'class' => ['form-control'],
-            'min' => 0,
-            ]) !!}
-            {!! errorMessageAjax('sort') !!}
-        </div> --}}
-    </div>
-
-    <div class="row">
         <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('status', 'Status *', ['class' => 'control-label']) !!}
             {!! Form::checkbox('status', 1, !isset($model) ? true : null, [
