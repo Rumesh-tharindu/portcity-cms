@@ -56,5 +56,9 @@ class Category extends Model implements Auditable, HasMedia
         return $this->belongsTo(Category::class);
     }
 
+    public function publications()
+    {
+        return $this->hasMany(Publication::class);
+    }
 
 }

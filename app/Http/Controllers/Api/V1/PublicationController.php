@@ -23,8 +23,16 @@ class PublicationController extends Controller
 
     public function show($slug)
     {
+        $model = $this->model->getBySlug($slug)->loadMissing('category');
 
-        return new PublicationResource($this->model->getBySlug($slug)->loadMissing('category'));
+        request()->merge([
+            'not_in' => $model->id,
+            'category' => $model->category->slug
+        ]);
+
+        $model->related = new PublicationCollection($this->model->filter());
+
+        return new PublicationResource($model);
     }
 
 }

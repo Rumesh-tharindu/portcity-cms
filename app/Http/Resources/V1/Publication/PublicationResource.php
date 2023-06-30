@@ -48,6 +48,7 @@ class PublicationResource extends JsonResource
             ]),
             'slug' => $this->slug,
             'featured' => $this->featured,
+            'related' => $this->whenNotNull($this->related),
             //'sort' => $this->sort,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

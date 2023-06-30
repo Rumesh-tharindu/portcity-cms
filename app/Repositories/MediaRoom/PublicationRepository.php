@@ -43,6 +43,10 @@ class PublicationRepository extends Repository
                 $q
                 ->whereYear('published_at', request('year'));
             })
+        ->when(request('not_in'), function ($q) {
+                $q
+                ->whereNotIn('id', [request('not_in')]);
+        })
         ->latest('published_at')
         ->paginate(request('per_page'));
     }
