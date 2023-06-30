@@ -37,8 +37,8 @@ class PublicationResource extends JsonResource
 
                     $images['slider_images'] = [];
 
-                    foreach($slider_images as $item){
-                        $images['slider_images'][$item->getCustomProperty('sort')] = $item->getFullUrl();
+                    foreach($slider_images as $key => $item){
+                        $images['slider_images'][$key] = $item->getFullUrl();
                     }
 
                     return $images;
