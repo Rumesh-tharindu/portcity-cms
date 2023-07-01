@@ -11,13 +11,14 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Gallery extends Model implements Auditable, HasMedia
 {
-    use HasFactory, SoftDeletes, \OwenIt\Auditing\Auditable, InteractsWithMedia;
+    use HasFactory, HasSlug, SoftDeletes, \OwenIt\Auditing\Auditable, InteractsWithMedia;
 
-    protected $fillable = ['year', 'slug'];
+    protected $fillable = ['year', 'video_urls', 'slug', 'status'];
 
     public function getSlugOptions(): SlugOptions
     {
@@ -32,11 +33,16 @@ class Gallery extends Model implements Auditable, HasMedia
         ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued()
             ->performOnCollections('images');
-        $this->addMediaConversion('preview')
+/*         $this->addMediaConversion('preview')
         ->width(300)
         ->height(300)
         ->extractVideoFrameAtSecond(1)
-        ->performOnCollections('video');
+        ->performOnCollections('video'); */
+    }
+
+    public function scopeActive($query, $status = true)
+    {
+        $query->where('status', $status);
     }
 
 }

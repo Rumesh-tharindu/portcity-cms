@@ -18,4 +18,11 @@ class GalleryRepository extends Repository
             })->toJson();
     }
 
+    public function filter($status = true)
+    {
+        return $this->getModel()::active($status)->with(['media'])->when(request('year'), function ($q) {
+            $q->where('year', request('year'));
+        })->latest('year')->paginate(request('per_page'));
+    }
+
  }

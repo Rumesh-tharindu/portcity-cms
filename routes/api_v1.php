@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\ActivityController;
 use App\Http\Controllers\Api\V1\FaqController;
+use App\Http\Controllers\Api\V1\GalleryController;
 use App\Http\Controllers\Api\V1\MasterPlanController;
 use App\Http\Controllers\Api\V1\PlotController;
 use App\Http\Controllers\Api\V1\PublicationController;
@@ -40,3 +41,5 @@ Route::get('/activity/{slug}', [ActivityController::class, 'show']);
 Route::get('/public-registry-types', [PublicRegistryController::class, 'types']);
 Route::get('/public-registries', [PublicRegistryController::class, 'index']);
 Route::get('/public-registry/{slug}', [PublicRegistryController::class, 'show']);
+
+Route::get('/galleries', GalleryController::class);

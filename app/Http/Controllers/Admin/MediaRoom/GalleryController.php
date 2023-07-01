@@ -56,14 +56,14 @@ class GalleryController extends Controller
                         }
                     }
 
-                    if ($request->has('video')) {
+/*                     if ($request->has('video')) {
                         $fileInfo = Filepond::field($request->video)->getFile();
 
                         foreach ($fileInfo as $key => $vid) {
                             $customProperties['sort'] = $key;
                             $this->model->addMedia($model->id, $vid, 'video', $customProperties);
                         }
-                    }
+                    } */
 
                     $request->session()->flash('success', 'Success!');
 
@@ -107,14 +107,14 @@ class GalleryController extends Controller
                         }
                     }
 
-                    if ($request->has('video')) {
+/*                     if ($request->has('video')) {
                         $fileInfo = Filepond::field($request->video)->getFile();
 
                         foreach ($fileInfo as $key => $vid) {
                             $customProperties['sort'] = $key;
                             $this->model->addMedia($id, $vid, 'video', $customProperties);
                         }
-                    }
+                    } */
 
                     $request->session()->flash('success', 'Success!');
 

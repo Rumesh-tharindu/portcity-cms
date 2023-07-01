@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin\MediaRoom\Gallery;
 
+use App\Rules\CommaSeparatedUrls;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,20 +25,22 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
-            'year' => 'required|numeric|max:' . date('Y'),
+            'year' => "required|numeric|unique:galleries,year,{$this->gallery},id,deleted_at,NULL|max:" . date('Y'),
             'images.*' => Rule::filepond([
                 'nullable',
                 'image',
                 'mimes:jpg,jpeg,png',
                 'max:2048',
             ]),
-            'video.*' => Rule::filepond([
+            'video_urls' => [ 'nullable', new CommaSeparatedUrls ],
+/*             'video.*' => Rule::filepond([
                 'nullable',
                 'file',
                 'mimes:mp4,ogx,oga,ogv,ogg,webm',
                 //'max:2048',
-            ]),
+            ]), */
         ];
     }
 

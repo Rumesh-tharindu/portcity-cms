@@ -24,12 +24,13 @@ class CommaSeparatedUrls implements Rule
      */
     public function passes($attribute, $value)
     {
+
         return ! validator(
             [
-                "{$attribute}" => explode(',', $value),
+                "{$attribute}" => explode(',', preg_replace( "/\r|\n/", "", $value)),
             ],
             [
-                "{$attribute}.*" => 'required|url',
+                "{$attribute}.*" => 'url',
             ]
         )->fails();
     }

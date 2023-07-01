@@ -23,6 +23,18 @@
 
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
+            {!! Form::label('video_urls_(comma seperated)') !!}
+
+            {!! Form::textarea('video_urls', null, [
+            'class' => 'form-control ',
+            'rows' => 2,
+            ]) !!}
+
+            {!! errorMessageAjax('video_urls') !!}
+
+        </div>
+
+        <div class="col-xs-12 col-md-12 ">
             {!! Form::label('images') !!}
 
             {!! getImagePreview($model, 'images', false) !!}
@@ -41,7 +53,7 @@
         </div>
     </div>
 
-    <div class="row">
+{{--     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             {!! Form::label('video') !!}
 
@@ -58,7 +70,7 @@
             {!! errorMessageAjax('video') !!}
 
         </div>
-    </div>
+    </div> --}}
 
     <div class="row">
         <div class="col-xs-12 col-md-6 form-group">
