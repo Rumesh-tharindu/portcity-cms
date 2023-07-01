@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Activity;
+use App\Models\Faq;
+use App\Models\Gallery;
+use App\Observers\ActivityObserver;
+use App\Observers\FaqObserver;
+use App\Observers\GalleryObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,7 +33,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Gallery::observe(GalleryObserver::class);
+        Faq::observe(FaqObserver::class);
+        Activity::observe(ActivityObserver::class);
     }
 
     /**

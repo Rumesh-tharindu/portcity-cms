@@ -33,12 +33,12 @@ class ActivityRepository extends Repository
                 });
 
             })
-        ->latest()->paginate(request('per_page'));
+        ->latest()->cache(key: 'activity')->paginate(request('per_page'));
     }
 
     public function getBySlug($slug = null)
     {
-        return $this->getModel()->active(true)->whereSlug($slug)->firstOrFail();
+        return $this->getModel()->active(true)->whereSlug($slug)->cache(key: 'activity')->firstOrFail();
     }
 
 }

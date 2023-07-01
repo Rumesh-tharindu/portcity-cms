@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\Faq\FaqCollection;
 use App\Http\Resources\V1\Gallery\GalleryCollection;
 use App\Models\Faq;
 use App\Models\Gallery;
-use App\Repositories\About\FaqRepository;
 use App\Repositories\MediaRoom\GalleryRepository;
 
 class GalleryController extends Controller
