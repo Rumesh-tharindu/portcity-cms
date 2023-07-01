@@ -18,10 +18,31 @@ class PublicRegistryRepository extends Repository
             })->toJson();
     }
 
-    public function active($status = 'active')
+    public function filter($status = true)
     {
-        return $this->getModel()::active($status)->orderBy('sort')->orderBy('title')
-            ->get();
+        return $this->getModel()::active($status)->with(['category', 'media'])
+        ->when(request('type'), function($q){
+            $q->whereRelation('category', function($q){
+                $q->active(true)->whereSlug(request('type'));
+            });
+        })
+        ->when(request('status'), function($q){
+            $q->whereStatus(request('status'));
+        })
+        ->when(request('search'), function ($q) {
+            $q->where(function ($q) {
+                $q->where('title', 'REGEXP', request('search'))
+                ->orWhere('description', 'REGEXP', request('search'))
+                ->orWhere('license_number', 'REGEXP', request('search'))
+                ->orWhere('address', 'REGEXP', request('search'));
+            });
+        })
+            ->orderBy('title')->paginate(request('per_page'));
+    }
+
+    public function getBySlug($slug = null)
+    {
+        return $this->getModel()->active(true)->whereSlug($slug)->firstOrFail();
     }
 
 }

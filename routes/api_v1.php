@@ -5,8 +5,8 @@ use App\Http\Controllers\Api\V1\FaqController;
 use App\Http\Controllers\Api\V1\MasterPlanController;
 use App\Http\Controllers\Api\V1\PlotController;
 use App\Http\Controllers\Api\V1\PublicationController;
+use App\Http\Controllers\Api\V1\PublicRegistryController;
 use App\Http\Controllers\Api\V1\RegulationController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,3 +36,7 @@ Route::get('/faqs', FaqController::class);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::get('/activity/{slug}', [ActivityController::class, 'show']);
+
+Route::get('/public-registry-types', [PublicRegistryController::class, 'types']);
+Route::get('/public-registries', [PublicRegistryController::class, 'index']);
+Route::get('/public-registry/{slug}', [PublicRegistryController::class, 'show']);
