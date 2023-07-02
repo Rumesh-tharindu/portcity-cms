@@ -25,8 +25,15 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'question.en' => 'required|string|max:100',
-            'answer.en' => 'required',
+            'title.en' => 'required|string|max:100',
+            'date_range' => 'required',
+            'date_from' => 'required|date',
+            'date_to' => 'required|date',
+            'time_from' => 'required',
+            'time_to' => 'required',
+            'description.en' => 'nullable',
+            'location.en' => 'nullable',
+            'ticket.en' => 'nullable',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }
@@ -34,9 +41,42 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'question.en.required' => 'The question field is required.',
-            'question.en.max' => 'The question must not be greater than :max characters.',
-            'answer.en.required' => 'The answer field is required.',
+            'title.en.required' => 'The title field is required.',
+            'title.en.max' => 'The title must not be greater than :max characters.',
+            'description.en.required' => 'The description field is required.',
+            'location.en.required' => 'The location field is required.',
+            'ticket.en.required' => 'The ticket field is required.',
         ];
     }
+
+    /**
+ * Prepare the data for validation.
+ */
+protected function prepareForValidation(): void
+{
+    if($this->date_range){
+        $multidate = explode(" - ", $this->date_range);
+
+        $date_from = $multidate[0];
+        $date_to = $multidate[1];
+
+        $this->merge([
+            'date_from' => \Carbon\Carbon::createFromFormat("m/d/Y", $date_from)->format('Y-m-d'),
+            'date_to' => \Carbon\Carbon::createFromFormat("m/d/Y", $date_to)->format('Y-m-d'),
+        ]);
+    }
+
+    if($this->time_from){
+        $this->merge([
+            'time_from' => \Carbon\Carbon::parse($this->time_from)->format('G:i'),
+        ]);
+    }
+
+    if($this->time_to){
+        $this->merge([
+            'time_to' => \Carbon\Carbon::parse($this->time_to)->format('G:i'),
+        ]);
+    }
+
+}
 }

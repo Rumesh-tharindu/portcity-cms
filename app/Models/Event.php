@@ -65,16 +65,10 @@ class Event extends Model implements Auditable, HasMedia
 
     public function getDateRangeAttribute()
     {
-        if(!$this->one_day){
-            return implode(" - ", [
-                \Carbon\Carbon::parse($this->date_from)->format('m/d/Y'),
-                \Carbon\Carbon::parse($this->date_to)->format('m/d/Y')
-            ]);
-
-        }else{
-            return \Carbon\Carbon::parse($this->date_from)->format('m/d/Y');
-
-        }
+        return implode(" - ", [
+            \Carbon\Carbon::parse($this->date_from)->format('m/d/Y'),
+            \Carbon\Carbon::parse($this->date_to)->format('m/d/Y')
+        ]);
     }
 
 

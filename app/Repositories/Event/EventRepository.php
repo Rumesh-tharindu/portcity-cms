@@ -10,6 +10,12 @@ class EventRepository extends Repository
     public function dataTable()
     {
         return DataTables::of($this->model::with(['media'])->get())
+        ->editColumn('time_from', function ($model) {
+            return \Carbon\Carbon::parse($model->time_from)->format('h:i A');
+        })
+        ->editColumn('time_to', function ($model) {
+            return \Carbon\Carbon::parse($model->time_to)->format('h:i A');
+        })
             ->editColumn('status', function ($model) {
                 return view('backend.event.includes.table-status', ['model' => $model]);
             })

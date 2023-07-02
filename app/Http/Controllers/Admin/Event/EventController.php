@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Repositories\Event\EventRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use RahulHaque\Filepond\Facades\Filepond;
 
 class EventController extends Controller
 {
@@ -41,9 +42,20 @@ class EventController extends Controller
 
                 $data['status'] = $request->status ? true : false;
 
-                $data['one_day'] = $request->one_day ? true : false;
-
                 if ($model = $this->model->create($data)) {
+
+                    if ($request->has('featured_image')) {
+                        $this->model->addMedia($model->id, $data['featured_image'], 'featured_image');
+                    }
+
+                    if ($request->has('slider_images')) {
+                        $fileInfo = Filepond::field($request->slider_images)->getFile();
+
+                        foreach ($fileInfo as $key => $img) {
+                            $customProperties['sort'] = $key;
+                            $this->model->addMedia($model->id, $img, 'slider_images', $customProperties);
+                        }
+                    }
 
                     $request->session()->flash('success', 'Success!');
 
@@ -76,9 +88,20 @@ class EventController extends Controller
 
                 $data['status'] = $request->status ? true : false;
 
-                $data['one_day'] = $request->one_day ? true : false;
-
                 if ($this->model->update($data, $id)) {
+
+                    if ($request->has('featured_image')) {
+                        $this->model->addMedia($id, $data['featured_image'], 'featured_image');
+                    }
+
+                    if ($request->has('slider_images')) {
+                        $fileInfo = Filepond::field($request->slider_images)->getFile();
+
+                        foreach ($fileInfo as $key => $img) {
+                            $customProperties['sort'] = $key;
+                            $this->model->addMedia($id, $img, 'slider_images', $customProperties);
+                        }
+                    }
 
                     $request->session()->flash('success', 'Success!');
 

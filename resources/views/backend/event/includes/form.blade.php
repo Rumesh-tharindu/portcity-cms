@@ -13,7 +13,7 @@
 
     </div>
 
-    <div class="row">
+{{--     <div class="row">
         <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('one_day', 'One Day *', ['class' => 'control-label']) !!}
             {!! Form::checkbox('one_day', 1, !isset($model) ? false : null, [
@@ -23,11 +23,11 @@
             {!! errorMessageAjax('one_day') !!}
         </div>
 
-    </div>
+    </div> --}}
 
     <div class="row">
 
-        <div class="col-xs-12 col-md-6 form-group onedate">
+{{--         <div class="col-xs-12 col-md-6 form-group onedate">
             {!! Form::label('Date *', null, ['class' => 'control-label']) !!}
 
             <div class="input-group date" id="onedate" data-target-input="nearest">
@@ -39,7 +39,7 @@
             </div>
 
             {!! errorMessageAjax('date_from') !!}
-        </div>
+        </div> --}}
 
         <div class="col-xs-12 col-md-6 form-group multidate">
             {!! Form::label('Date range *', null, ['class' => 'control-label']) !!}
@@ -52,7 +52,7 @@
             {!! Form::text("date_range", null, ["id" => 'daterange', "class" => ["form-control"]]) !!}
 
             </div>
-
+            {!! errorMessageAjax('date_range') !!}
             {!! errorMessageAjax('date_from') !!}
             {!! errorMessageAjax('date_to') !!}
 
@@ -111,6 +111,26 @@
         </div> --}}
     </div>
 
+    <div class="row not-media-kit">
+        <div class="col-xs-12 col-md-12 ">
+            {!! Form::label('slider_images') !!}
+
+            {!! getImagePreview($model, 'slider_images', false) !!}
+
+            {!! Form::file('slider_images[]', [
+            'class' => 'filepond',
+            'accept' => 'image/jpeg,image/jpg,image/png',
+            'multiple',
+            'data-allow-reorder' => true,
+            'data-max-file-size' => '2MB',
+            'data-max-files' => '5',
+            ]) !!}
+
+            {!! errorMessageAjax('slider_images') !!}
+
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('status', 'Status *', ['class' => 'control-label']) !!}
@@ -131,8 +151,8 @@
 <script>
       $(function() {
 
-        $(".onedate").hide();
-        $(".multidate").show();
+/*         $(".onedate").hide();
+        $(".multidate").show(); */
     //Date picker
     $('#onedate').datetimepicker({
       format: 'L'
@@ -145,7 +165,7 @@
       format: 'LT'
     });
 
-    $('input[name=one_day]').on('switchChange.bootstrapSwitch', function(event, state) {
+    /* $('input[name=one_day]').on('switchChange.bootstrapSwitch', function(event, state) {
         if(state) {
         $(".onedate").show();
         $(".multidate").hide();
@@ -153,9 +173,10 @@
         $(".onedate").hide();
         $(".multidate").show();
     }
-});
+}); */
 })
 </script>
+@include('backend.theme.components.filepond')
 @include('backend.theme.components.ajax-form-submit', [ 'redirectUrl' => 'admin.event.index' ])
 @include('backend.theme.components.ajax-media-delete')
 @endpush
