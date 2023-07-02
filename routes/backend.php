@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\About\FaqController;
 use App\Http\Controllers\Admin\Activity\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Event\EventController;
 use App\Http\Controllers\Admin\MasterPlan\PlanController;
 use App\Http\Controllers\Admin\MasterPlan\PlotController;
 use App\Http\Controllers\Admin\MediaController;
@@ -67,6 +68,8 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
         Route::resource('plot', PlotController::class)->except('show');
 
     });
+
+    Route::resource('event', EventController::class)->except('show');
 
     Route::delete('/media/delete/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
 });

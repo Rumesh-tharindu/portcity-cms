@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,5 +30,12 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Model::preventLazyLoading(! app()->isProduction());
+
+        $this->app->resolving(Paginator::class, function ($paginator) {
+            return $paginator->appends(Arr::except(Request::query(), $paginator->getPageName()));
+        });
+        $this->app->resolving(LengthAwarePaginator::class, function ($paginator) {
+            return $paginator->appends(Arr::except(Request::query(), $paginator->getPageName()));
+        });
     }
 }

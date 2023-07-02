@@ -203,6 +203,19 @@
         </li>
         @endcanany
 
+        @can('admin.event.index')
+        <li class="nav-item">
+            <a href="{{ route('admin.event.index') }}"
+                class="nav-link @if (request()->route()->named('admin.event.*')) active @endif">
+                <i class="nav-icon fas fa-calendar" aria-hidden="true"></i>
+                <p>
+                    Manage Events
+
+                </p>
+            </a>
+        </li>
+        @endcan
+
         @can('admin.change-password.edit')
         <li class="nav-item">
             <a href="{{ route('admin.change-password.edit') }}"

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin\Event;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
         return [
             'title.en' => 'required|string|max:100',
             'date_from' => 'required|date',
-            'date_to' => 'required_without,one_day|date',
+            'date_to' => 'required_without:one_day|date',
             'time_from' => 'required',
             'time_to' => 'required',
             'description.en' => 'nullable',
@@ -47,4 +47,45 @@ class UpdateRequest extends FormRequest
             'ticket.en.required' => 'The ticket field is required.',
         ];
     }
+
+    /**
+ * Prepare the data for validation.
+ */
+protected function prepareForValidation(): void
+{
+    if($this->has('one_day')){
+        $this->merge([
+            'date_from' => \Carbon\Carbon::createFromFormat("m/d/Y", $this->onedate)->format('Y-m-d'),
+            'date_to' => \Carbon\Carbon::createFromFormat("m/d/Y", $this->onedate)->format('Y-m-d'),
+
+        ]);
+    }else{
+
+        if($this->date_range){
+            $multidate = explode(" - ", $this->date_range);
+
+            $date_from = $multidate[0];
+            $date_to = $multidate[1];
+
+            $this->merge([
+                'date_from' => \Carbon\Carbon::createFromFormat("m/d/Y", $date_from)->format('Y-m-d'),
+                'date_to' => \Carbon\Carbon::createFromFormat("m/d/Y", $date_to)->format('Y-m-d'),
+            ]);
+        }
+
+    }
+
+    if($this->time_from){
+        $this->merge([
+            'time_from' => \Carbon\Carbon::parse($this->time_from)->format('G:i'),
+        ]);
+    }
+
+    if($this->time_to){
+        $this->merge([
+            'time_to' => \Carbon\Carbon::parse($this->time_to)->format('G:i'),
+        ]);
+    }
+
+}
 }
