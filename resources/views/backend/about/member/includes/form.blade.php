@@ -1,0 +1,63 @@
+{{-- @include('backend.theme.components.localization-tab') --}}
+
+<div class="card-body">
+
+    {{ Form::model($model, $route) }}
+
+    <div class="tab-content">
+
+        <div class="tab-pane fade active show" id="custom-tabs-en" role="tabpanel" aria-labelledby="custom-tabs-en-tab">
+            @include('backend.about.member.includes.localization', [ 'locale' => 'en' ])
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-xs-12 col-md-6 form-group">
+            {!! Form::label('avatar') !!}
+            {!! getImagePreview($model, 'avatar', false) !!}
+            <div class="custom-file">
+                {!! Form::file('avatar', [
+                'class' => 'form-control custom-file-input',
+                'accept' => 'image/jpeg,image/jpg,image/png',
+                ]) !!}
+                <label class="custom-file-label" for="avatar">Choose image</label>
+            </div>
+
+            {!! errorMessageAjax('avatar') !!}
+
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-3 form-group">
+        {!! Form::label('sort_*') !!}
+        {!! Form::number('sort', null, [
+        'class' => ['form-control'],
+        'min' => 0,
+        ]) !!}
+        {!! errorMessageAjax('sort') !!}
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-md-6 form-group">
+            {!! Form::label('status', 'Status *', ['class' => 'control-label']) !!}
+            {!! Form::checkbox('status', 1, !isset($model) ? true : null, [
+            'class' => 'form-control',
+            'data-bootstrap-switch',
+            ]) !!}
+            {!! errorMessageAjax('status') !!}
+        </div>
+
+    </div>
+    {!! $model ? updateButton() : saveButton() !!}
+    {!! Form::close() !!}
+</div>
+
+
+@push('scripts')
+@include('backend.theme.components.ajax-form-submit', [ 'redirectUrl' => 'admin.about.member.index' ])
+@include('backend.theme.components.ajax-media-delete')
+@endpush

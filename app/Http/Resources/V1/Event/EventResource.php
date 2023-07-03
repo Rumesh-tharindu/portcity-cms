@@ -29,6 +29,22 @@ class EventResource extends JsonResource
             'ticket' => $this->ticket,
             'slug' => $this->slug,
             'one_day' => $this->one_day,
+            'thumbnail' => $this->getFirstMediaUrl('featured_image'),
+            $this->mergeWhen($this->getMedia('slider_images')->isNotEmpty(),
+                function () {
+                    $medias = $this->getMedia('slider_images');
+                    $slider_images = $medias->sortBy(function ($media, $key) {
+                        return $media->getCustomProperty('sort');
+                    });
+
+                    $images['slider_images'] = [];
+
+                    foreach($slider_images as $key => $item){
+                        $images['slider_images'][$key] = $item->getFullUrl();
+                    }
+
+                    return $images;
+                }),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -34,6 +34,13 @@ class UpdateRequest extends FormRequest
             'description.en' => 'nullable',
             'location.en' => 'nullable',
             'ticket.en' => 'nullable',
+            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'slider_images.*' => Rule::filepond([
+                'nullable',
+                'image',
+                'mimes:jpg,jpeg,png',
+                'max:2048',
+            ]),
             'sort' => 'sometimes|numeric|min:0',
         ];
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\FaqController;
 use App\Http\Controllers\Api\V1\GalleryController;
 use App\Http\Controllers\Api\V1\MasterPlanController;
+use App\Http\Controllers\Api\V1\MemberController;
 use App\Http\Controllers\Api\V1\PlotController;
 use App\Http\Controllers\Api\V1\PublicationController;
 use App\Http\Controllers\Api\V1\PublicRegistryController;
@@ -48,3 +49,4 @@ Route::get('/galleries', GalleryController::class);
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/event/{slug}', [EventController::class, 'show']);
 
+Route::get('/members', MemberController::class);

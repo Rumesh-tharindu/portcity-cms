@@ -127,6 +127,18 @@
             </ul>
             @endcan
 
+            @can('admin.about.member.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.about.member.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.about.member.*')) active @endif">
+                        <i class="far fa-id-badge nav-icon"></i>
+                        <p>Members</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
         </li>
         @endcanany
 

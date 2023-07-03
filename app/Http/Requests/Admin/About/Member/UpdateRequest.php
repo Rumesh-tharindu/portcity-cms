@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\About\Faq;
+namespace App\Http\Requests\Admin\About\Member;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,8 +25,9 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'question.en' => 'required|string|max:100',
-            'answer.en' => 'required',
+            'name.en' => 'required|string|max:100',
+            'designation.en' => 'required',
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }
@@ -34,9 +35,8 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'question.en.required' => 'The question field is required.',
-            'question.en.max' => 'The question must not be greater than :max characters.',
-            'answer.en.required' => 'The answer field is required.',
+            'name.en.required' => 'The name field is required.',
+            'designation.en.required' => 'The designation field is required.',
         ];
     }
 }

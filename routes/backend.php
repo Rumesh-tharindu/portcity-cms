@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\About\FaqController;
+use App\Http\Controllers\Admin\About\MemberController;
 use App\Http\Controllers\Admin\Activity\ActivityController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Event\EventController;
@@ -59,6 +60,8 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
 
         Route::resource('faq', FaqController::class)->except('show');
+
+        Route::resource('member', MemberController::class)->except('show');
 
     });
 
