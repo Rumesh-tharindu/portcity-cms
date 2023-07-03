@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ActivityController;
+use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\FaqController;
 use App\Http\Controllers\Api\V1\GalleryController;
 use App\Http\Controllers\Api\V1\MasterPlanController;
@@ -43,3 +44,7 @@ Route::get('/public-registries', [PublicRegistryController::class, 'index']);
 Route::get('/public-registry/{slug}', [PublicRegistryController::class, 'show']);
 
 Route::get('/galleries', GalleryController::class);
+
+Route::get('/events', [EventController::class, 'index']);
+Route::get('/event/{slug}', [EventController::class, 'show']);
+
