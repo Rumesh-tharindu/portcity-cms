@@ -71,6 +71,4 @@ class Event extends Model implements Auditable, HasMedia
         ]);
     }
 
-
-
 }

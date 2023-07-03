@@ -154,9 +154,9 @@
 /*         $(".onedate").hide();
         $(".multidate").show(); */
     //Date picker
-    $('#onedate').datetimepicker({
+/*     $('#onedate').datetimepicker({
       format: 'L'
-    });
+    }); */
      $('#daterange').daterangepicker();
      $('#fromtimepicker').datetimepicker({
       format: 'LT'
@@ -164,6 +164,14 @@
     $('#totimepicker').datetimepicker({
       format: 'LT'
     });
+
+    //::Time Condition
+$('#fromtimepicker').on("change.datetimepicker", function (e) {
+    if(e.date){
+        $('#totimepicker').datetimepicker(e.date.add(15, 'm'));
+    }
+    $('#totimepicker').datetimepicker('minDate', e.date)
+});
 
     /* $('input[name=one_day]').on('switchChange.bootstrapSwitch', function(event, state) {
         if(state) {

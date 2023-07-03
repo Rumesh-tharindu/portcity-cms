@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Event\UpdateRequest;
 use App\Models\Event;
 use App\Repositories\Event\EventRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use RahulHaque\Filepond\Facades\Filepond;
 
@@ -41,6 +42,14 @@ class EventController extends Controller
                 $data = $request->all();
 
                 $data['status'] = $request->status ? true : false;
+
+                if(Carbon::parse($request->date_from)->eq(Carbon::parse($request->date_to))){
+                    $data['one_day'] = true;
+
+                 }else{
+                    $data['one_day'] = false;
+
+                 }
 
                 if ($model = $this->model->create($data)) {
 
@@ -87,6 +96,14 @@ class EventController extends Controller
                 $data = $request->all();
 
                 $data['status'] = $request->status ? true : false;
+
+                if(Carbon::parse($request->date_from)->eq(Carbon::parse($request->date_to))){
+                    $data['one_day'] = true;
+
+                 }else{
+                    $data['one_day'] = false;
+
+                 }
 
                 if ($this->model->update($data, $id)) {
 

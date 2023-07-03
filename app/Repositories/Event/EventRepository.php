@@ -19,9 +19,13 @@ class EventRepository extends Repository
             ->editColumn('status', function ($model) {
                 return view('backend.event.includes.table-status', ['model' => $model]);
             })
+            ->editColumn('one_day', function ($model) {
+                return view('backend.event.includes.table-days', ['model' => $model]);
+            })
             ->addColumn('action', function ($model) {
                 return view('backend.event.includes.table-actions', ['model' => $model]);
-            })->toJson();
+            })
+            ->toJson();
     }
 
     public function filter($status = true)

@@ -47,6 +47,7 @@
                                 <tr>
                                     <th>Id</th>
 
+                                    <th>Days</th>
                                     <th>Date From</th>
                                     <th>Date To</th>
                                     <th>Time From</th>
@@ -84,6 +85,7 @@
         "{{ route('admin.event.index') }}",
         [
             {data: 'id', name: 'id'},
+            {data: 'one_day', name: 'one_day'},
             {data: 'date_from', name: 'date_from'},
             {data: 'date_to', name: 'date_to'},
             {data: 'time_from', name: 'time_from'},

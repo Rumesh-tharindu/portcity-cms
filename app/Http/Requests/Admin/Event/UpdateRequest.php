@@ -27,10 +27,10 @@ class UpdateRequest extends FormRequest
         return [
             'title.en' => 'required|string|max:100',
             'date_range' => 'required',
-            'date_from' => 'required|date',
-            'date_to' => 'required|date',
-            'time_from' => 'required',
-            'time_to' => 'required',
+            'date_from' => 'required|date|lte:date_to',
+            'date_to' => 'required|date|gte:date_from',
+            'time_from' => 'required|date_format:G:i|before:time_to',
+            'time_to' => 'required|date_format:G:i|after:time_from',
             'description.en' => 'nullable',
             'location.en' => 'nullable',
             'ticket.en' => 'nullable',
@@ -46,6 +46,8 @@ class UpdateRequest extends FormRequest
             'description.en.required' => 'The description field is required.',
             'location.en.required' => 'The location field is required.',
             'ticket.en.required' => 'The ticket field is required.',
+            'time_from' => 'The time from must be a time before time to.',
+            'time_to' => 'The time to must be a time after time from.',
         ];
     }
 
