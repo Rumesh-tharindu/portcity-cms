@@ -54,4 +54,9 @@ class Plot extends Model implements Auditable, HasMedia
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function customTables()
+    {
+        return $this->morphMany(CustomTable::class, 'model');
+    }
 }

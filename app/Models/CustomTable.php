@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\CommonModelTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Sluggable\SlugOptions;
+
+class CustomTable extends Model implements Auditable
+{
+    use HasFactory, CommonModelTrait, \OwenIt\Auditing\Auditable;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'status',
+        'sort'
+    ];
+
+    public $translatable = [
+        'name',
+    ];
+
+    protected $casts = [
+        'name' => 'array',
+    ];
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(function ($model, $locale = 'en') {
+                return "{$model->getTranslation('name', 'en')}";
+            })
+            ->saveSlugsTo('slug');
+    }
+
+    public function scopeActive($query, $status = true)
+    {
+        $query->where('status', $status);
+    }
+
+    public function customTable()
+    {
+        return $this->morphTo();
+    }
+
+    public function customTableSummeries()
+    {
+        return $this->hasMany(CustomTableSummary::class);
+    }
+}

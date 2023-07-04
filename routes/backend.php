@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\About\FaqController;
 use App\Http\Controllers\Admin\About\MemberController;
 use App\Http\Controllers\Admin\Activity\ActivityController;
+use App\Http\Controllers\Admin\CustomTable\CustomTableController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Event\EventController;
 use App\Http\Controllers\Admin\MasterPlan\PlanController;
@@ -71,6 +72,8 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
         Route::resource('plot', PlotController::class)->except('show');
 
     });
+
+    Route::resource('custom-table', CustomTableController::class)->except('show');
 
     Route::resource('event', EventController::class)->except('show');
 
