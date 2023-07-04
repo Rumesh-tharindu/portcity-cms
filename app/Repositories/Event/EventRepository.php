@@ -40,7 +40,8 @@ class EventRepository extends Repository
                 });
 
             })
-        ->latest('date_from')->paginate(request('per_page'));
+        ->latest('date_from')
+        ->paginate(request('per_page'));
     }
 
     public function getBySlug($slug = null)

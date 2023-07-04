@@ -31,7 +31,8 @@ class PlanRepository extends Repository
                     ->orWhere('description', 'REGEXP', request('search'));
             });
         })
-            ->orderBy('title')->get();
+            ->orderBy('title')
+            ->get();
     }
 
     public function getBySlug($slug = null)

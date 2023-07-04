@@ -27,7 +27,8 @@ class PlotRepository extends Repository
                 ->orWhere('plot_number', 'REGEXP', request('search'));
             });
         })
-            ->orderBy('title')->get();
+            ->orderBy('title')
+            ->get();
     }
 
     public function getBySlug($slug = null)

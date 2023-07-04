@@ -25,7 +25,9 @@ class MemberRepository extends Repository
                 $q->where('name', 'REGEXP', request('search'))
                 ->orWhere('designation', 'REGEXP', request('search'));
             });
-        })->orderBy('sort')->get();
+        })
+        ->orderBy('sort')
+        ->paginate(request('per_page'));
     }
 
 }

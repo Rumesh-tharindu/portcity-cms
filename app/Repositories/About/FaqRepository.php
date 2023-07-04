@@ -25,7 +25,9 @@ class FaqRepository extends Repository
                 $q->where('question', 'REGEXP', request('search'))
                 ->orWhere('answer', 'REGEXP', request('search'));
             });
-        })->orderBy('sort')->get();
+        })
+        ->orderBy('sort')
+        ->paginate(request('per_page'));
     }
 
 }
