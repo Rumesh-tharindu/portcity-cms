@@ -17,16 +17,18 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
-/*             'date_from' => $this->date_from->format('Y-m-d'),
+            /*             'date_from' => $this->date_from->format('Y-m-d'),
             'date_to' => $this->date_to->format('Y-m-d'),
             'time_from' => Carbon::parse($this->time_from)->format('h:i A'),
             'time_to' => Carbon::parse($this->time_to)->format('h:i A'), */
+            'title' => $this->title,
+            'eventInfo' => [
             'date' => $this->date_from->format('d F') . " to " . $this->date_to->format('d F Y'),
             'time' => Carbon::parse($this->time_from)->format('h:ia') . " to " . Carbon::parse($this->time_to)->format('h:ia'),
-            'title' => $this->title,
             'description' => $this->description,
             'location' => $this->location,
             'ticket' => $this->ticket,
+            ],
             'slug' => $this->slug,
             'one_day' => $this->one_day,
             'thumbnail' => $this->getFirstMediaUrl('featured_image'),
