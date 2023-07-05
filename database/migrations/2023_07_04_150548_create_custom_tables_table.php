@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->morphs('model');
             $table->json('name');
+            $table->json('table_data');
+            $table->json('table_json');
             $table->string('slug')->nullable();
             $table->boolean('status')->default(true);
             $table->unsignedInteger('sort')->default(0)->index();

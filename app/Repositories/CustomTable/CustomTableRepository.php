@@ -9,7 +9,7 @@ class CustomTableRepository extends Repository
 {
     public function dataTable()
     {
-        return DataTables::of($this->model::with('category')->has('category')->get())
+        return DataTables::of($this->model::get())
             ->editColumn('status', function ($model) {
                 return view('backend.custom-table.includes.table-status', ['model' => $model]);
             })

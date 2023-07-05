@@ -14,8 +14,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.custom-table.edit', $product) }}">{{
-                                $product->title }}</a></li>
+                        {{-- <li class="breadcrumb-item"><a href="{{ route(" admin.custom-table.edit", $product) }}">{{
+                                $product->title }}</a></li> --}}
                         <li class="breadcrumb-item active">Create Custom Table</li>
                     </ol>
                 </div>

@@ -19,6 +19,7 @@
             'disabled',
             ]) !!}
             <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="product_type" value="{{ strtolower(class_basename($product)) }}">
         </div>
     </div>
 
@@ -63,7 +64,7 @@
 
 
 @push('scripts')
-@include('backend.theme.components.editor')
+@include('backend.theme.components.custom-table-editor')
 @include('backend.theme.components.ajax-form-submit', [
 'redirectRoute' => url()->previous(),
 ])

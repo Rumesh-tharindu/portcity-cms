@@ -25,7 +25,7 @@ class PlotController extends Controller
     public function show($slug)
     {
 
-        return new PlotResource($this->model->getBySlug($slug)->loadMissing('plan'));
+        return new PlotResource($this->model->getBySlug($slug)->loadMissing(['plan', 'customTables']));
     }
 
 }

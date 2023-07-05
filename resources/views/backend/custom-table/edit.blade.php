@@ -14,8 +14,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.custom-table.edit', $product) }}">{{
-                                $product->title }}</a></li>
+                        {{-- <li class="breadcrumb-item"><a href="{{ route('admin.custom-table.edit', $model) }}">{{
+                                $model->title }}</a></li> --}}
                         <li class="breadcrumb-item active">Edit Custom Table</li>
                     </ol>
                 </div>
@@ -28,7 +28,7 @@
 
         <div class="card card-tabs">
 
-            @include('backend.product-feature.includes.form', [
+            @include('backend.custom-table.includes.form', [
             'model' => $model,
             'route' => [
             'route' => ['admin.custom-table.update', $model],

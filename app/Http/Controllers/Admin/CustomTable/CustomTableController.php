@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\CustomTable\UpdateRequest;
 use App\Models\CustomTable;
 use App\Models\CustomTableSummary;
 use App\Models\Plot;
-use App\Repositories\CustomTable\CustomTableSummaryRepository;
 use App\Repositories\CustomTable\CustomTableRepository;
 use App\Repositories\MasterPlan\PlotRepository;
 use Illuminate\Http\Request;
@@ -17,10 +16,9 @@ use Illuminate\Support\Facades\Log;
 class CustomTableController extends Controller
 {
 
-    public function __construct(CustomTable $customTable, CustomTableSummary $model, Plot $plot)
+    public function __construct(CustomTable $model, Plot $plot)
     {
-        $this->model = new CustomTableSummaryRepository($model);
-        $this->customTable = new CustomTableRepository($customTable);
+        $this->model = new CustomTableRepository($model);
         $this->plot = new PlotRepository($plot);
 
     }
@@ -37,8 +35,8 @@ class CustomTableController extends Controller
     public function create(Request $request)
     {
 
-        if ($request->has('product_id')) {
-            $product = $this->plot->show($request->get('product_id'));
+        if ($request->has('plot_id')) {
+            $product = $this->plot->show($request->get('plot_id'));
 
             return view('backend.custom-table.create', [
                 'product' => $product,
@@ -54,18 +52,15 @@ class CustomTableController extends Controller
             try {
                 $data = $request->all();
 
-                //$data['status'] = $request->status ? true : false;
+                $data['status'] = $request->status ? true : false;
 
-                if ($customTable = $this->customTable->create($data)) {
+                $product_type = $request->product_type;
 
-                    $customTableRows = [];
+                if($request->has('product_id') && ($product = $this->{$product_type}->show($request->product_id))){
+                    $customTable = $product->customTables()->create($data);
+                }
 
-                    foreach ($data['custom_table_rows'] as $item) {
-
-                        $customTableRows[] = new CustomTableSummary($item);
-                    }
-
-                    $customTable->customTableSummary()->saveMany($customTableRows);
+                if (isset($customTable)) {
 
                     $request->session()->flash('success', 'Success!');
 
@@ -87,7 +82,9 @@ class CustomTableController extends Controller
     {
         $data['model'] = $this->model->show($id);
 
-        return view('backend.custom-table.edit');
+        $data['product'] = $data['model']->product;
+
+        return view('backend.custom-table.edit', $data);
     }
 
     public function update(UpdateRequest $request, $id)
@@ -99,10 +96,6 @@ class CustomTableController extends Controller
                 $data['status'] = $request->status ? true : false;
 
                 if ($this->model->update($data, $id)) {
-
-                    if ($request->has('featured_image')) {
-                        $this->model->addMedia($id, $data['featured_image'], 'featured_image');
-                    }
 
                     $request->session()->flash('success', 'Success!');
 

@@ -24,10 +24,8 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => 'required',
-            'title.en' => 'required|string|max:100',
-            'description.en' => 'required',
-            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'name.en' => 'nullable|string||max:100',
+            'table_data.en' => 'required|string',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }
@@ -35,10 +33,10 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'category_id.required' => 'The category field is required.',
-            'title.en.required' => 'The title field is required.',
-            'title.en.max' => 'The title must not be greater than :max characters.',
-            'description.en.required' => 'The description field is required.',
+            'name.en.required' => 'The name field is required.',
+            'name.en.max' => 'The name must not be greater than :max characters.',
+            'table_data.en.required' => 'The table field is required.',
+
         ];
     }
 }

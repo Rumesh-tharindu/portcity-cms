@@ -25,13 +25,8 @@ class StoreRequest extends FormRequest
     {
         return [
             'name.en' => 'nullable|string||max:100',
-            'th.en' => 'required|string|max:100',
-            'td.en' => 'nullable|string|max:100',
+            'table_data.en' => 'required|string',
             'sort' => 'sometimes|numeric|min:0',
-
-            'custom_table_rows' => 'required|array',
-            'custom_table_rows.*.th.en' => 'required_with:custom_table_rows|distinct',
-            'custom_table_rows.*.td.en' => 'required_with:custom_table_rows|string',
         ];
     }
 
@@ -40,8 +35,8 @@ class StoreRequest extends FormRequest
         return [
             'name.en.required' => 'The name field is required.',
             'name.en.max' => 'The name must not be greater than :max characters.',
-            'custom_table_rows.*.th.en.required_with' => 'The th field is required.',
-            'custom_table_rows.*.td.en.required_with' => 'The td field is required.',
-       ];
+            'table_data.en.required' => 'The table field is required.',
+
+        ];
     }
 }

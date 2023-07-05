@@ -48,45 +48,45 @@
     <!-- /.content -->
 
     @if ($model)
-            <section class="content">
+    <section class="content">
 
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Custom Tables</h3>
-                    </div>
-                    <div class="card-body">
-                        @if (Route::has('admin.custom-table.create'))
-                        <div class="row">
-                            <div class="col-md-12" align="left">
-                                <div class="card-header">
-                                    <a class="btn btn-primary button-rectangle"
-                                        href="{{ route('admin.custom-table.create', ['product_id' => $model->id]) }}"><i
-                                            class="fa fa-plus-circle"></i>&nbsp;
-                                        Add New</a>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        <div class="row">
-                            @foreach ($model->customTables as $table)
-                            <div class="col-12 col-sm-6 col-md-3">
-                                <a class="btn btn-block bg-navy mt-2" href="{{ route('admin.custom-table.edit', $table) }}">{{
-                                    $table->title }}
-                                    @if (!$table->status)
-                                    <i class="fa fa-eye-slash"></i>
-                                    @endif
-                                    <i class="fa fa-edit"></i>
-
-                                </a>
-                            </div>
-                            @endforeach
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Custom Tables</h3>
+            </div>
+            <div class="card-body">
+                @if (Route::has('admin.custom-table.create'))
+                <div class="row">
+                    <div class="col-md-12" align="left">
+                        <div class="card-header">
+                            <a class="btn btn-primary button-rectangle"
+                                href="{{ route('admin.custom-table.create', ['plot_id' => $model->id]) }}"><i
+                                    class="fa fa-plus-circle"></i>&nbsp;
+                                Add New</a>
                         </div>
                     </div>
-
                 </div>
-                <!-- /.card -->
-            </section>
-            @endif
+                @endif
+                <div class="row">
+                    @foreach ($model->customTables as $table)
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <a class="btn btn-block bg-navy mt-2" href="{{ route('admin.custom-table.edit', $table) }}">{{
+                            !empty($table->name) ? $table->name : ("tb-$loop->iteration")}}
+                            @if (!$table->status)
+                            <i class="fa fa-eye-slash"></i>
+                            @endif
+                            <i class="fa fa-edit"></i>
+
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card -->
+    </section>
+    @endif
 </div>
 <!-- /.content-wrapper -->
 @stop
