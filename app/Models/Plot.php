@@ -26,7 +26,7 @@ class Plot extends Model implements Auditable, HasMedia
     {
         return SlugOptions::create()
             ->generateSlugsFrom(function ($model, $locale = 'en') {
-                return "{$model->getTranslation('title', 'en')}{$model->plot_number}";
+                return "{$model->getTranslation('title', 'en')}";
             })
             ->saveSlugsTo('slug');
     }
