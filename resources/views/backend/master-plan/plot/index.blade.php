@@ -33,7 +33,8 @@
                     <div class="row">
                         <div class="col-md-12" align="left">
                             <div class="card-header">
-                                <a class="btn btn-primary button-rectangle" href="{{route('admin.master-plan.plot.create')}}"><i
+                                <a class="btn btn-primary button-rectangle"
+                                    href="{{route('admin.master-plan.plot.create')}}"><i
                                         class="fa fa-plus-circle"></i>&nbsp; Add New</a>
                             </div>
                         </div>
@@ -49,6 +50,7 @@
                                     <th>Plan</th>
                                     <th>Plot Number</th>
                                     <th>Title</th>
+                                    <th>Slug</th>
                                     <th>Status</th>
                                     <th>Action</th>
 
@@ -82,6 +84,7 @@
             {data: 'plan.title.en', name: 'plan.title.en'},
             {data: 'plot_number', name: 'plot_number'},
             {data: 'title.en', name: 'title.en'},
+            {data: 'slug', name: 'slug'},
             {data: 'status', name: 'status', orderable: false, searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
