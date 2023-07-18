@@ -18,16 +18,16 @@ class PublicRegistryRepository extends Repository
             })->toJson();
     }
 
-    public function filter($status = true)
+    public function filter()
     {
-        return $this->getModel()::active($status)->with(['category', 'media'])
+        return $this->getModel()::with(['category', 'media'])
         ->when(request('type'), function($q){
             $q->whereRelation('category', function($q){
                 $q->active(true)->whereSlug(request('type'));
             });
         })
-        ->when(request('status'), function($q){
-            $q->whereStatus(request('status'));
+        ->when(in_array(request('status'), ["0", "1"]), function($q){
+            $q->active(request('status'));
         })
         ->when(request('search'), function ($q) {
             $q->where(function ($q) {

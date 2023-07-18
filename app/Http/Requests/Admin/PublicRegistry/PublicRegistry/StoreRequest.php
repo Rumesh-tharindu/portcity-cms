@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             'license_number' => 'required|string|max:50',
             'description.en' => 'required',
             'address.en' => 'required|string|max:100',
-            'status' => 'required',
+            'status' => 'sometimes|boolean',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }

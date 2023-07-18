@@ -35,6 +35,7 @@ class PublicRegistry extends Model implements Auditable, HasMedia
         'title' => 'array',
         'description' => 'array',
         'address' => 'array',
+        'status' => 'boolean',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -46,7 +47,7 @@ class PublicRegistry extends Model implements Auditable, HasMedia
             ->saveSlugsTo('slug');
     }
 
-    public function scopeActive($query, $status = 'active')
+    public function scopeActive($query, $status = true)
     {
         $query->where('status', $status);
     }
