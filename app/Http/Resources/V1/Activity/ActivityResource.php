@@ -19,7 +19,7 @@ class ActivityResource extends JsonResource
             'id' => $this->id,
             'category' => new CategoryResource($this->whenLoaded('category')),
             'title' => $this->title,
-            'description' => $this->description,
+            'content' => $this->description,
             'featured_image' => $this->getFirstMediaUrl('featured_image'),
             'slug' => $this->slug,
             'sort' => $this->sort,
