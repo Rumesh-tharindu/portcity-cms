@@ -28,10 +28,10 @@ class UpdateRequest extends FormRequest
     {
 
         return [
-            'year' => "required|numeric|unique:galleries,year,{$this->gallery},id,deleted_at,NULL|max:" . date('Y'),
-            'gallery' => 'required|array|',
+            'year' => "required|numeric|unique:galleries,year,{$this->route('gallery')},id,deleted_at,NULL|max:" . date('Y'),
+            'gallery' => 'required|array',
             'gallery.*.image' => [
-                'required_with:gallery',
+                'nullable',
                 'image',
                 'mimes:jpg,jpeg,png',
                 'max:2048',

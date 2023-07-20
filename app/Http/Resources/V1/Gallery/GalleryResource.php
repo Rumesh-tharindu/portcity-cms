@@ -28,12 +28,17 @@ class GalleryResource extends JsonResource
                     $img['images'] = [];
 
                     foreach($images as $key => $item){
-                        $img['images'][$key] = $item->getFullUrl();
+                        $img['images'][$key] = [
+
+                            'image_url' => $item->getFullUrl(),
+                            'video_url' => $item->custom_properties['video_url'] ?? null,
+
+                        ];
                     }
 
                     return $img;
                 }),
-            'video_urls' => explode(",", preg_replace( "/\r|\n/", "", $this->video_urls)),
+            //'video_urls' => explode(",", preg_replace( "/\r|\n/", "", $this->video_urls)),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

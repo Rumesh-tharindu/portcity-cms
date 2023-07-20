@@ -14,6 +14,7 @@ use App\Repositories\MediaRoom\PublicationRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use RahulHaque\Filepond\Facades\Filepond;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class GalleryController extends Controller
 {
@@ -50,7 +51,7 @@ class GalleryController extends Controller
                     if ($request->has('gallery')) {
                         foreach ($data['gallery'] as $item) {
                             if (isset($item['image'])) {
-                            $fileInfo = Filepond::field($item['image'])->getFile();
+                            $fileInfo = $item['image'];
                             $customProperties['sort'] = $item['sort'];
                             $customProperties['video_url'] = $item['video_url'];
                             $this->model->addMedia($model->id, $fileInfo, 'images', $customProperties);
@@ -91,19 +92,27 @@ class GalleryController extends Controller
 
                 if ($this->model->update($data, $id)) {
 
+                    $model = $this->model->show($id);
+
                     if ($request->has('gallery')) {
 
-                        $medias = $this->model->getMedia('images');
+                        $medias = $model->getMedia('images');
 
-                        $medias_ids = $medias->pluck('id');
+                        $medias_ids = $medias->pluck('id')->toArray();
+
+                        $item_media_ids = [];
 
                         foreach ($data['gallery'] as $item) {
+
+                            if(isset($item['media_id'])){
+                               $item_media_ids[] = $item['media_id'];
+                            }
 
                             $customProperties['sort'] = $item['sort'];
                             $customProperties['video_url'] = $item['video_url'];
 
                             if(isset($item['image'])){
-                                $fileInfo = Filepond::field($item['image'])->getFile();
+                                $fileInfo = $item['image'];
 
                                 $this->model->addMedia($id, $fileInfo, 'images', $customProperties);
 
@@ -125,6 +134,10 @@ class GalleryController extends Controller
                             }
 
                         }
+
+                        $deleted_media_ids = array_diff($medias_ids, $item_media_ids);
+
+                        Media::destroy($deleted_media_ids);
                     }
 
                     $request->session()->flash('success', 'Success!');

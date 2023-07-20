@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'year' => 'required|numeric|unique:galleries,year,NULL,id,deleted_at,NULL|max:' . date('Y'),
-            'gallery' => 'required|array|',
+            'gallery' => 'required|array',
             'gallery.*.image' => [
                 'required_with:gallery',
                 'image',

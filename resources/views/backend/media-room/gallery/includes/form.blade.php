@@ -36,13 +36,17 @@
         <div class="col-xs-12 col-md-4">
             {!! Form::label('images_*') !!}
 
-            {!! getImagePreview($model, 'images', false) !!}
-
-            {!! Form::file('gallery[1][image]', [
-            'class' => 'filepond',
+            <div class="custom-file">
+                {!! Form::file("gallery[1][image]", [
+            'class' => 'form-control custom-file-input',
             'accept' => 'image/jpeg,image/jpg,image/png',
-            'data-max-file-size' => '2MB',
             ]) !!}
+                <label class="custom-file-label" for="gallery[1][image]">Choose image</label>
+            </div>
+
+            @if (isset($model) && $model->getMedia('images')->isNotEmpty())
+            {!! Form::hidden('gallery[1][media_id]', $model->getFirstMedia('images')->id) !!}
+            @endif
 
             {!! errorMessageAjax('gallery.1.image') !!}
 
@@ -51,7 +55,7 @@
         <div class="col-xs-12 col-md-6 ">
             {!! Form::label('video_url') !!}
 
-            {!! Form::url('gallery[1][video_url]', null, [
+            {!! Form::url('gallery[1][video_url]', (isset($model) && $model->getMedia('images')->isNotEmpty()) ? $model->getFirstMedia('images')->custom_properties['video_url'] : null, [
             'class' => 'form-control ',
             ]) !!}
 
@@ -62,7 +66,7 @@
         <div class="col-xs-12 col-md-1 ">
             {!! Form::label('sort') !!}
 
-            {!! Form::number('gallery[1][sort]', null, [
+            {!! Form::number('gallery[1][sort]', (isset($model) && $model->getMedia('images')->isNotEmpty()) ? $model->getFirstMedia('images')->custom_properties['sort'] : null, [
             'class' => 'form-control ',
             'min' => 0,
             ]) !!}
@@ -78,9 +82,9 @@
     <div id="field_wrapper_gallery">
         @isset($model)
         @forelse ($model->getMedia('images') as $image)
-        @if ($loop->first)
-        @continue
-        @endif
+
+        @continue($loop->first)
+
         <div class="row row-gallery-{{ $loop->iteration }}">
 
             <div class="col-xs-12 col-md-1 form-group">
@@ -91,13 +95,17 @@
 
             <div class="col-xs-12 col-md-4">
 
-                {!! getImagePreview($model, 'images', false) !!}
-
-                {!! Form::file("gallery[{$loop->iteration}][image]", [
-                'class' => 'filepond',
+                <div class="custom-file">
+                    {!! Form::file("gallery[{$loop->iteration}][image]", [
+                'class' => 'form-control custom-file-input',
                 'accept' => 'image/jpeg,image/jpg,image/png',
-                'data-max-file-size' => '2MB',
                 ]) !!}
+                    <label class="custom-file-label" for="gallery[{{$loop->iteration}}][image]">Choose image</label>
+                </div>
+
+                @if (isset($model) && isset($image))
+                {!! Form::hidden("gallery[{$loop->iteration}][media_id]", $image->id) !!}
+                @endif
 
                 {!! errorMessageAjax("gallery.{$loop->iteration}.image") !!}
 
@@ -105,7 +113,7 @@
 
             <div class="col-xs-12 col-md-6 ">
 
-                {!! Form::url("gallery[{$loop->iteration}][video_url]", null, [
+                {!! Form::url("gallery[{$loop->iteration}][video_url]", $image->custom_properties['video_url'] ?? null, [
                 'class' => 'form-control ',
                 ]) !!}
 
@@ -115,7 +123,7 @@
 
             <div class="col-xs-12 col-md-1 ">
 
-                {!! Form::number("gallery[{$loop->iteration}][sort]", null, [
+                {!! Form::number("gallery[{$loop->iteration}][sort]", $image->custom_properties['sort'] ?? null, [
                 'class' => 'form-control ',
                 'min' => 0,
                 ]) !!}
@@ -150,7 +158,6 @@
 
 @push('scripts')
 @include('backend.theme.components.editor')
-@include('backend.theme.components.filepond')
 @include('backend.theme.components.ajax-form-submit', ['redirectUrl' => 'admin.media-room.gallery.index'])
 <script>
     //Date picker
@@ -181,8 +188,10 @@
 
     <div class="col-xs-12 col-md-4">
 
-        <input class="filepond" accept="image/jpeg,image/jpg,image/png" data-max-file-size="2MB" name="gallery[${count}][image]"
-            type="file">
+        <div class="custom-file">
+                <input class="form-control custom-file-input" accept="image/jpeg,image/jpg,image/png" name="gallery[${count}][image]" type="file">
+                <label class="custom-file-label" for="gallery[${count}][image]">Choose image</label>
+        </div>
 
         <p class="text-danger error gallery_${count}_image"></p>
 
@@ -211,7 +220,7 @@
 
             $('#row_count_gallery').val(count);
 
-            filepondInit();
+
 
         }
 

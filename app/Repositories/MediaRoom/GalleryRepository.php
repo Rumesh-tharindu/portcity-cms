@@ -23,6 +23,16 @@ class GalleryRepository extends Repository
         return $this->getModel()::active($status)->with(['media'])->when(request('year'), function ($q) {
             $q->where('year', request('year'));
         })
+        ->when(request('video'), function ($q) {
+            $q->whereRelation('media', function ($q) {
+                $q->whereCollectionName('images')->whereNotNull('custom_properties->video_url');
+            });
+        })
+        ->when(request('image'), function ($q) {
+            $q->whereRelation('media', function ($q) {
+                $q->whereCollectionName('images')->whereNull('custom_properties->video_url');
+            });
+        })
         ->latest('year')
         ->paginate(request('per_page'));
     }
