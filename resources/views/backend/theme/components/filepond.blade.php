@@ -15,7 +15,8 @@
         }
     });
 
-    // get a collection of elements with class filepond
+    function filepondInit(){
+   // get a collection of elements with class filepond
     const inputElements = document.querySelectorAll('input.filepond');
 
     // loop over input elements
@@ -30,6 +31,8 @@
     });
 
     })
+    }
 
+    filepondInit();
 
 </script>

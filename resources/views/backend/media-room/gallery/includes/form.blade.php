@@ -22,55 +22,114 @@
     </div>
 
     <div class="row">
-        <div class="col-xs-12 col-md-12 ">
-            {!! Form::label('video_urls_(comma seperated)') !!}
 
-            {!! Form::textarea('video_urls', null, [
-            'class' => 'form-control ',
-            'rows' => 2,
-            ]) !!}
+        {!! errorMessageAjax('gallery') !!}
 
-            {!! errorMessageAjax('video_urls') !!}
+        <div class="col-xs-12 col-md-1 ">
+            {!! Form::label('Add') !!}
+
+            <button type="button" class="btn btn-primary form-control" onclick="add_row_gallery();"><i
+                    class="fa fa-plus"></i></button>
 
         </div>
 
-        <div class="col-xs-12 col-md-12 ">
-            {!! Form::label('images') !!}
+        <div class="col-xs-12 col-md-4">
+            {!! Form::label('images_*') !!}
 
             {!! getImagePreview($model, 'images', false) !!}
 
-            {!! Form::file('images[]', [
+            {!! Form::file('gallery[1][image]', [
             'class' => 'filepond',
             'accept' => 'image/jpeg,image/jpg,image/png',
-            'multiple',
-            'data-allow-reorder' => true,
             'data-max-file-size' => '2MB',
-            'data-max-files' => '100',
             ]) !!}
 
-            {!! errorMessageAjax('images') !!}
+            {!! errorMessageAjax('gallery.1.image') !!}
 
         </div>
+
+        <div class="col-xs-12 col-md-6 ">
+            {!! Form::label('video_url') !!}
+
+            {!! Form::url('gallery[1][video_url]', null, [
+            'class' => 'form-control ',
+            ]) !!}
+
+            {!! errorMessageAjax('gallery.1.video_url') !!}
+
+        </div>
+
+        <div class="col-xs-12 col-md-1 ">
+            {!! Form::label('sort') !!}
+
+            {!! Form::number('gallery[1][sort]', null, [
+            'class' => 'form-control ',
+            'min' => 0,
+            ]) !!}
+
+            {!! errorMessageAjax('gallery.1.sort') !!}
+
+        </div>
+
     </div>
 
-{{--     <div class="row">
-        <div class="col-xs-12 col-md-12 ">
-            {!! Form::label('video') !!}
+    <input type="hidden" name="row_count_gallery"
+        value="{{ isset($model) ? ($model->getMedia('images')->count() ?? 1) : 1 }}" id="row_count_gallery">
+    <div id="field_wrapper_gallery">
+        @isset($model)
+        @forelse ($model->getMedia('images') as $image)
+        @if ($loop->first)
+        @continue
+        @endif
+        <div class="row row-gallery-{{ $loop->iteration }}">
 
-            {!! getImagePreview($model, 'video', false) !!}
+            <div class="col-xs-12 col-md-1 form-group">
+                <button type="button" class="btn btn-danger form-control"
+                    onclick="remove_row_gallery({{ $loop->iteration }});"><i class="fa fa-minus"></i></button>
 
-            {!! Form::file('video[]', [
-            'class' => 'filepond',
-            'accept' => 'video/mp4,video/ogx,video/oga,video/ogv,video/ogg,video/webm',
-            'multiple',
-            'data-allow-reorder' => true,
-            'data-max-files' => '100',
-            ]) !!}
+            </div>
 
-            {!! errorMessageAjax('video') !!}
+            <div class="col-xs-12 col-md-4">
+
+                {!! getImagePreview($model, 'images', false) !!}
+
+                {!! Form::file("gallery[{$loop->iteration}][image]", [
+                'class' => 'filepond',
+                'accept' => 'image/jpeg,image/jpg,image/png',
+                'data-max-file-size' => '2MB',
+                ]) !!}
+
+                {!! errorMessageAjax("gallery.{$loop->iteration}.image") !!}
+
+            </div>
+
+            <div class="col-xs-12 col-md-6 ">
+
+                {!! Form::url("gallery[{$loop->iteration}][video_url]", null, [
+                'class' => 'form-control ',
+                ]) !!}
+
+                {!! errorMessageAjax("gallery.{$loop->iteration}.video_url") !!}
+
+            </div>
+
+            <div class="col-xs-12 col-md-1 ">
+
+                {!! Form::number("gallery[{$loop->iteration}][sort]", null, [
+                'class' => 'form-control ',
+                'min' => 0,
+                ]) !!}
+
+                {!! errorMessageAjax("gallery.{$loop->iteration}.sort") !!}
+
+            </div>
 
         </div>
-    </div> --}}
+        @empty
+        @endforelse
+        @endisset
+
+    </div>
 
     <div class="row">
         <div class="col-xs-12 col-md-6 form-group">
@@ -93,7 +152,6 @@
 @include('backend.theme.components.editor')
 @include('backend.theme.components.filepond')
 @include('backend.theme.components.ajax-form-submit', ['redirectUrl' => 'admin.media-room.gallery.index'])
-@include('backend.theme.components.ajax-media-delete')
 <script>
     //Date picker
         $('#year').datetimepicker({
@@ -101,5 +159,65 @@
             defaultDate: moment().format('YYYY'),
             maxDate : 'now',
         });
+</script>
+<script>
+    var field_wrapper_gallery = $('#field_wrapper_gallery');
+
+        function add_row_gallery() {
+
+            var row_count_gallery = $('#row_count_gallery').val();
+
+            var count = parseInt(row_count_gallery) + 1;
+
+            var fieldHTML1 = `
+<div class="row row-gallery-${count}">
+
+    <div class="col-xs-12 col-md-1 ">
+
+        <button type="button" class="btn btn-danger form-control" onclick="remove_row_gallery(${count});"><i
+                class="fa fa-minus"></i></button>
+
+    </div>
+
+    <div class="col-xs-12 col-md-4">
+
+        <input class="filepond" accept="image/jpeg,image/jpg,image/png" data-max-file-size="2MB" name="gallery[${count}][image]"
+            type="file">
+
+        <p class="text-danger error gallery_${count}_image"></p>
+
+    </div>
+
+    <div class="col-xs-12 col-md-6 ">
+
+        <input class="form-control " name="gallery[${count}][video_url]" type="url">
+
+        <p class="text-danger error gallery_${count}_video_url"></p>
+
+    </div>
+
+    <div class="col-xs-12 col-md-1 ">
+
+        <input class="form-control " min="0" name="gallery[${count}][sort]" type="number">
+
+        <p class="text-danger error gallery_${count}_sort"></p>
+
+    </div>
+
+</div>
+            `;
+
+            $(field_wrapper_gallery).append(fieldHTML1);
+
+            $('#row_count_gallery').val(count);
+
+            filepondInit();
+
+        }
+
+        function remove_row_gallery(row) {
+            $('.row-gallery-' + row).remove();
+            $('#row_count_gallery').val($('#row_count_gallery').val() - 1);
+        }
 </script>
 @endpush

@@ -41,29 +41,22 @@ class GalleryController extends Controller
     {
         if ($request->ajax()) {
             try {
-                ($data = $request->all());
+                $data = $request->all();
 
                 $data['status'] = $request->status ? true : false;
 
                 if ($model = $this->model->create($data)) {
 
-                    if ($request->has('images')) {
-                        $fileInfo = Filepond::field($request->images)->getFile();
-
-                        foreach ($fileInfo as $key => $img) {
-                            $customProperties['sort'] = $key;
-                            $this->model->addMedia($model->id, $img, 'images', $customProperties);
+                    if ($request->has('gallery')) {
+                        foreach ($data['gallery'] as $item) {
+                            if (isset($item['image'])) {
+                            $fileInfo = Filepond::field($item['image'])->getFile();
+                            $customProperties['sort'] = $item['sort'];
+                            $customProperties['video_url'] = $item['video_url'];
+                            $this->model->addMedia($model->id, $fileInfo, 'images', $customProperties);
+                            }
                         }
                     }
-
-/*                     if ($request->has('video')) {
-                        $fileInfo = Filepond::field($request->video)->getFile();
-
-                        foreach ($fileInfo as $key => $vid) {
-                            $customProperties['sort'] = $key;
-                            $this->model->addMedia($model->id, $vid, 'video', $customProperties);
-                        }
-                    } */
 
                     $request->session()->flash('success', 'Success!');
 
@@ -98,23 +91,41 @@ class GalleryController extends Controller
 
                 if ($this->model->update($data, $id)) {
 
-                    if ($request->has('images')) {
-                        $fileInfo = Filepond::field($request->images)->getFile();
+                    if ($request->has('gallery')) {
 
-                        foreach ($fileInfo as $key => $img) {
-                            $customProperties['sort'] = $key;
-                            $this->model->addMedia($id, $img, 'images', $customProperties);
+                        $medias = $this->model->getMedia('images');
+
+                        $medias_ids = $medias->pluck('id');
+
+                        foreach ($data['gallery'] as $item) {
+
+                            $customProperties['sort'] = $item['sort'];
+                            $customProperties['video_url'] = $item['video_url'];
+
+                            if(isset($item['image'])){
+                                $fileInfo = Filepond::field($item['image'])->getFile();
+
+                                $this->model->addMedia($id, $fileInfo, 'images', $customProperties);
+
+                                if(isset($item['media_id'])){
+                                    foreach ($medias as $media) {
+                                        if ($media->id == $item['media_id']) {
+                                            $media->delete();
+                                        }
+                                    }
+                                }
+
+                            }elseif(isset($item['media_id']) && !isset($item['image'])) {
+                                foreach($medias as $media){
+                                    if($media->id == $item['media_id']){
+                                      $media->custom_properties = $customProperties;
+                                      $media->save();
+                                    }
+                                }
+                            }
+
                         }
                     }
-
-/*                     if ($request->has('video')) {
-                        $fileInfo = Filepond::field($request->video)->getFile();
-
-                        foreach ($fileInfo as $key => $vid) {
-                            $customProperties['sort'] = $key;
-                            $this->model->addMedia($id, $vid, 'video', $customProperties);
-                        }
-                    } */
 
                     $request->session()->flash('success', 'Success!');
 

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\MediaRoom\Gallery;
 
 use App\Rules\CommaSeparatedUrls;
+use App\Rules\YouTubeUrl;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,26 +29,30 @@ class UpdateRequest extends FormRequest
 
         return [
             'year' => "required|numeric|unique:galleries,year,{$this->gallery},id,deleted_at,NULL|max:" . date('Y'),
-            'images.*' => Rule::filepond([
-                'nullable',
+            'gallery' => 'required|array|',
+            'gallery.*.image' => [
+                'required_with:gallery',
                 'image',
                 'mimes:jpg,jpeg,png',
                 'max:2048',
-            ]),
-            'video_urls' => [ 'nullable', new CommaSeparatedUrls ],
-/*             'video.*' => Rule::filepond([
-                'nullable',
-                'file',
-                'mimes:mp4,ogx,oga,ogv,ogg,webm',
-                //'max:2048',
-            ]), */
+            ],
+            'gallery.*.video_url' => ['nullable', 'string', 'url', new YouTubeUrl],
+            'gallery.*.sort' => 'nullable|numeric|min:0',
+
         ];
     }
 
     public function messages()
     {
-        return [
+        return [];
+    }
 
+    public function attributes()
+    {
+        return [
+            'gallery.*.image' => "gallery :position image",
+            'gallery.*.video_url' => "gallery :position video url",
+            'gallery.*.sort' => "gallery :position sort",
         ];
     }
 }
