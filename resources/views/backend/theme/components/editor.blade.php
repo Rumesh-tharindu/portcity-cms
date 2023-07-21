@@ -64,7 +64,7 @@
                 ],
             },
             buttons: {
-                //lfm: LFMButton
+                lfm: LFMButton
             }
         });
     });
