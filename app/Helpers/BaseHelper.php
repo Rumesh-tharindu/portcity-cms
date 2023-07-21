@@ -210,6 +210,17 @@ if (! function_exists('getLocaleLabel')) {
     }
 }
 
+if (!function_exists('getImageSinglePreview')) {
+    function getImageSinglePreview($media)
+    {
+        if (isset($media)) {
+            $data['media'] = $media;
+
+            return view('backend.theme.components.image-single-popup', $data)->render();
+        }
+    }
+}
+
 if (! function_exists('getImagePreview')) {
     function getImagePreview($model, $collection = 'null', $required = true)
     {

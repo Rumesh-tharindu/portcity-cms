@@ -52,9 +52,9 @@ class StoreRequest extends FormRequest
     public function attributes()
     {
         return [
-            'gallery.*.image' => "gallery :position image",
-            'gallery.*.video_url' => "gallery :position video url",
-            'gallery.*.sort' => "gallery :position sort",
+            'gallery.*.image' => "gallery image",
+            'gallery.*.video_url' => "gallery video url",
+            'gallery.*.sort' => "gallery sort",
         ];
     }
 }

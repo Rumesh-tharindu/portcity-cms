@@ -35,17 +35,32 @@
 
         <div class="col-xs-12 col-md-4">
             {!! Form::label('images_*') !!}
+            <div class="input-group">
 
-            <div class="custom-file">
-                {!! Form::file("gallery[1][image]", [
-            'class' => 'form-control custom-file-input',
-            'accept' => 'image/jpeg,image/jpg,image/png',
-            ]) !!}
-                <label class="custom-file-label" for="gallery[1][image]">Choose image</label>
+                @if (isset($model) && $model->getMedia('images')->isNotEmpty() && $media =
+                $model->getFirstMedia('images'))
+                <div class="input-group-prepend">
+
+                    {!! getImageSinglePreview($media) !!}
+                </div>
+                @endif
+
+                <div class="custom-file">
+                    {!! Form::file("gallery[1][image]", [
+                    'class' => 'form-control custom-file-input',
+                    'accept' => 'image/jpeg,image/jpg,image/png',
+                    ]) !!}
+                    <label class="custom-file-label" for="gallery[1][image]">{{ (isset($model) &&
+                        $model->getMedia('images')->isNotEmpty() && $media =
+                        $model->getFirstMedia('images')) ?
+                        $media->file_name : "Choose image"}}</label>
+
+                </div>
+
             </div>
-
             @if (isset($model) && $model->getMedia('images')->isNotEmpty())
             {!! Form::hidden('gallery[1][media_id]', $model->getFirstMedia('images')->id) !!}
+            {!! errorMessageAjax('gallery.1.media_id') !!}
             @endif
 
             {!! errorMessageAjax('gallery.1.image') !!}
@@ -55,7 +70,8 @@
         <div class="col-xs-12 col-md-6 ">
             {!! Form::label('video_url') !!}
 
-            {!! Form::url('gallery[1][video_url]', (isset($model) && $model->getMedia('images')->isNotEmpty()) ? $model->getFirstMedia('images')->custom_properties['video_url'] : null, [
+            {!! Form::url('gallery[1][video_url]', (isset($model) && $model->getMedia('images')->isNotEmpty()) ?
+            $model->getFirstMedia('images')->custom_properties['video_url'] : null, [
             'class' => 'form-control ',
             ]) !!}
 
@@ -66,7 +82,8 @@
         <div class="col-xs-12 col-md-1 ">
             {!! Form::label('sort') !!}
 
-            {!! Form::number('gallery[1][sort]', (isset($model) && $model->getMedia('images')->isNotEmpty()) ? $model->getFirstMedia('images')->custom_properties['sort'] : null, [
+            {!! Form::number('gallery[1][sort]', (isset($model) && $model->getMedia('images')->isNotEmpty()) ?
+            $model->getFirstMedia('images')->custom_properties['sort'] : null, [
             'class' => 'form-control ',
             'min' => 0,
             ]) !!}
@@ -94,17 +111,29 @@
             </div>
 
             <div class="col-xs-12 col-md-4">
+                <div class="input-group">
 
-                <div class="custom-file">
-                    {!! Form::file("gallery[{$loop->iteration}][image]", [
-                'class' => 'form-control custom-file-input',
-                'accept' => 'image/jpeg,image/jpg,image/png',
-                ]) !!}
-                    <label class="custom-file-label" for="gallery[{{$loop->iteration}}][image]">Choose image</label>
+                    @if (isset($image))
+                    <div class="input-group-prepend">
+
+                        {!! getImageSinglePreview($image) !!}
+                    </div>
+                    @endif
+
+                    <div class="custom-file">
+                        {!! Form::file("gallery[{$loop->iteration}][image]", [
+                        'class' => 'form-control custom-file-input',
+                        'accept' => 'image/jpeg,image/jpg,image/png',
+                        ]) !!}
+                        <label class="custom-file-label" for="gallery[{{$loop->iteration}}][image]">{{ isset($image) ?
+                            $image->file_name : "Choose image"}}</label>
+                    </div>
+
                 </div>
-
                 @if (isset($model) && isset($image))
                 {!! Form::hidden("gallery[{$loop->iteration}][media_id]", $image->id) !!}
+
+                {!! errorMessageAjax("gallery.{$loop->iteration}.media_id") !!}
                 @endif
 
                 {!! errorMessageAjax("gallery.{$loop->iteration}.image") !!}
@@ -113,7 +142,8 @@
 
             <div class="col-xs-12 col-md-6 ">
 
-                {!! Form::url("gallery[{$loop->iteration}][video_url]", $image->custom_properties['video_url'] ?? null, [
+                {!! Form::url("gallery[{$loop->iteration}][video_url]", $image->custom_properties['video_url'] ?? null,
+                [
                 'class' => 'form-control ',
                 ]) !!}
 

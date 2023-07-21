@@ -26,8 +26,11 @@ class PublicRegistryRepository extends Repository
                 $q->active(true)->whereSlug(request('type'));
             });
         })
-        ->when(in_array(request('status'), ["0", "1"]), function($q){
-            $q->active(request('status'));
+        ->when(request('status') == "active", function($q){
+            $q->active(true);
+        })
+        ->when(request('status') == "in-active", function ($q) {
+                $q->active(false);
         })
         ->when(request('search'), function ($q) {
             $q->where(function ($q) {
