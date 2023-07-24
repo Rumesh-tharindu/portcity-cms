@@ -20,7 +20,14 @@ class GalleryRepository extends Repository
 
     public function filter($status = true)
     {
-        return $this->getModel()::active($status)->with(['media'])
+        return $this->getModel()::active($status)->with(['media' => function ($q) {
+            $q->when(request('category') == "video", function ($q) {
+                $q->whereCollectionName('images')->whereNotNull('custom_properties->video_url');
+            })
+                ->when(request('category') == "images", function ($q) {
+                    $q->whereCollectionName('images')->whereNull('custom_properties->video_url');
+                });
+        }])
         ->when(request('year'), function ($q) {
             $q->where('year', request('year'));
         })
