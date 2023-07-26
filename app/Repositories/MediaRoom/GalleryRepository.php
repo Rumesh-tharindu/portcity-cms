@@ -2,7 +2,9 @@
 
 namespace App\Repositories\MediaRoom;
 
+use App\Models\Gallery;
 use App\Repositories\Repository;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Yajra\DataTables\DataTables;
 
 class GalleryRepository extends Repository
@@ -20,29 +22,29 @@ class GalleryRepository extends Repository
 
     public function filter($status = true)
     {
-        return $this->getModel()::active($status)->with(['media' => function ($q) {
-            $q->when(request('category') == "video", function ($q) {
-                $q->whereCollectionName('images')->whereNotNull('custom_properties->video_url');
-            })
-                ->when(request('category') == "images", function ($q) {
-                    $q->whereCollectionName('images')->whereNull('custom_properties->video_url');
+
+        return $this->getModel()::with(['model' =>function ($q) use($status){
+            $q->active($status)->when(request('year'), function ($q) {
+                $q->where('year', request('year'));
+            });
+        }])->whereCollectionName('images')->whereHasMorph(
+            'model',
+            [Gallery::class],
+            function ($q) {
+                $q->active()->when(request('year'), function ($q) {
+                    $q->where('year', request('year'));
                 });
-        }])
-        ->when(request('year'), function ($q) {
-            $q->where('year', request('year'));
-        })
-        ->when(request('category') == "video", function ($q) {
-            $q->whereRelation('media', function ($q) {
-                $q->whereCollectionName('images')->whereNotNull('custom_properties->video_url');
-            });
-        })
-        ->when(request('category') == "images", function ($q) {
-            $q->whereRelation('media', function ($q) {
-                $q->whereCollectionName('images')->whereNull('custom_properties->video_url');
-            });
-        })
-        ->latest('year')
-        ->paginate(request('per_page'));
+            }
+        )
+            ->when(request('category') == "video", function ($q) {
+                $q->whereNotNull('custom_properties->video_url');
+            })
+            ->when(request('category') == "images", function ($q) {
+                $q->whereNull('custom_properties->video_url');
+            })
+            ->orderBy('custom_properties->sort')
+            ->paginate(request('per_page'));
+
     }
 
  }

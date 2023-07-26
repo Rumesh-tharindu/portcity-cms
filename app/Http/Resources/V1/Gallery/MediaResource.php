@@ -5,7 +5,7 @@ namespace App\Http\Resources\V1\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GalleryResource extends JsonResource
+class MediaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class GalleryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'year' => $this->year,
-            'slug' => $this->slug,
+            'image_url' => $this->getUrl(),
+            'video_url' => $this->hasCustomProperty('video_url') ? $this->getCustomProperty('video_url') : null,
+            'gallery' => new GalleryResource($this->whenLoaded('model')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
