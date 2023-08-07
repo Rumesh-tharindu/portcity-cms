@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\V1\Faq;
+namespace App\Http\Resources\V1\Regulation;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class FaqCollection extends ResourceCollection
+class RegulationCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.

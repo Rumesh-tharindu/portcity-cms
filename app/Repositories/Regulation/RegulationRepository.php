@@ -30,7 +30,7 @@ class RegulationRepository extends Repository
             $q
             ->whereFeatured(request('featured'));
         })
-            ->orderBy('sort')->get();
+            ->orderBy('sort')->paginate(request('per_page'));
     }
 
 }
