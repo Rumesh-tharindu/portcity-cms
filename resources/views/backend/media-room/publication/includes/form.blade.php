@@ -25,7 +25,7 @@
 
     <div class="row">
 
-        <div class="col-xs-12 col-md-6 form-group">
+        <div class="col-xs-12 col-md-6 form-group not-media-kit">
             {!! Form::label('featured_image') !!}
             {!! getImagePreview($model, 'featured_image', false) !!}
             <div class="custom-file">
