@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ActivityController;
+use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\FaqController;
 use App\Http\Controllers\Api\V1\GalleryController;
@@ -50,3 +51,6 @@ Route::get('/events', [EventController::class, 'index']);
 Route::get('/event/{slug}', [EventController::class, 'show']);
 
 Route::get('/members', MemberController::class);
+
+Route::post('/contact', [ContactController::class, 'store']);
+
