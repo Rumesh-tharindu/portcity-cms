@@ -14,7 +14,7 @@
 
     <div class="row">
 
-        <div class="col-xs-12 col-md-6 form-group">
+        {{-- <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('featured_image') !!}
             {!! getImagePreview($model, 'featured_image', false) !!}
             <div class="custom-file">
@@ -27,7 +27,7 @@
 
             {!! errorMessageAjax('featured_image') !!}
 
-        </div>
+        </div> --}}
 
         <div class="col-xs-12 col-md-6 form-group">
             {!! Form::label('sort_*') !!}
