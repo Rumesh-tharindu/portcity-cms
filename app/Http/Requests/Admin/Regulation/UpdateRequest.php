@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title.en' => 'required|string|max:100',
+            'title.en' => 'required|string|max:200',
             'description.en' => 'required',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'pdf' => Rule::filepond([
