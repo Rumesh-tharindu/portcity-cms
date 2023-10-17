@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'category_id' => 'required',
-            'title.en' => 'required|string|max:100',
+            'title.en' => 'required|string|max:200',
             'description.en' => 'required',
             'featured_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'sort' => 'sometimes|numeric|min:0',

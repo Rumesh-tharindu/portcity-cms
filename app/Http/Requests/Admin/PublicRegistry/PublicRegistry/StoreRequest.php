@@ -25,10 +25,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'category_id' => 'required',
-            'title.en' => 'required|string|max:100',
+            'title.en' => 'required|string|max:200',
             'license_number' => 'required|string|max:50',
             'description.en' => 'required',
-            'address.en' => 'required|string|max:100',
+            'address.en' => 'required|string|max:200',
             'status' => 'sometimes|boolean',
             'sort' => 'sometimes|numeric|min:0',
         ];

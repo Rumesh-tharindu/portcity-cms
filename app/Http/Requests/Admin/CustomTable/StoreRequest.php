@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name.en' => 'nullable|string||max:100',
+            'name.en' => 'nullable|string||max:200',
             'table_data.en' => 'required|string',
             'sort' => 'sometimes|numeric|min:0',
         ];

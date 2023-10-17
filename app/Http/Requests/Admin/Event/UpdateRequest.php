@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title.en' => 'required|string|max:100',
+            'title.en' => 'required|string|max:200',
             'date_range' => 'required',
             'date_from' => 'required|date|lte:date_to',
             'date_to' => 'required|date|gte:date_from',

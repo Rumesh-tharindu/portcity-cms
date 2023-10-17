@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'question.en' => 'required|string|max:100',
+            'question.en' => 'required|string|max:200',
             'answer.en' => 'required',
             'sort' => 'sometimes|numeric|min:0',
         ];
