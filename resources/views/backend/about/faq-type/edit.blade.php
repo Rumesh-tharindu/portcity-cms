@@ -1,4 +1,4 @@
-@extends('backend.theme.master', ['page' => 'Edit FAQ'])
+@extends('backend.theme.master', ['page' => 'Edit FAQ Types'])
 
 @section('content')
 
@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.about.faq.faq.index') }}">FAQs</a>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.about.faq.type.index') }}">FAQ Types</a>
                         </li>
                         <li class="breadcrumb-item active">Edit</li>
                     </ol>
@@ -28,10 +28,10 @@
 
         <div class="card card-tabs">
 
-            @include('backend.about.faq.includes.form', [
+            @include('backend.about.faq-type.includes.form', [
             'model' => $model,
             'route' => [
-            'route' => ['admin.about.faq.faq.update', $model],
+            'route' => ['admin.about.faq.type.update', $model],
             'method' => 'put',
             'class' => 'ajax-form',
             'files' => true,

@@ -105,7 +105,7 @@
         </li>
         @endcan
 
-        @canany('admin.about.faq.index')
+        @canany('admin.about.member.index', 'admin.about.faq.faq.index', 'admin.about.faq.type.index')
         <li class="nav-item @if (request()->route()->named('admin.about.*')) menu-open @endif">
             <a href="#" class="nav-link @if (request()->route()->named('admin.about.*')) active @endif">
                 <i class="nav-icon fas fa-info-circle" aria-hidden="true"></i>
@@ -115,11 +115,23 @@
                 </p>
             </a>
 
-            @can('admin.about.faq.index')
+            @can('admin.about.faq.type.index')
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="{{ route('admin.about.faq.index') }}"
-                        class="nav-link @if (request()->route()->named('admin.about.faq.*')) active @endif">
+                    <a href="{{ route('admin.about.faq.type.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.about.faq.type.*')) active @endif">
+                        <i class="far fa-list-alt nav-icon"></i>
+                        <p>FAQ Types</p>
+                    </a>
+                </li>
+            </ul>
+            @endcan
+
+            @can('admin.about.faq.faq.index')
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{ route('admin.about.faq.faq.index') }}"
+                        class="nav-link @if (request()->route()->named('admin.about.faq.faq.*')) active @endif">
                         <i class="far fa-question-circle nav-icon"></i>
                         <p>FAQs</p>
                     </a>

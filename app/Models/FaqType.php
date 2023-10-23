@@ -10,21 +10,21 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\SlugOptions;
 
-class Faq extends Model implements Auditable, HasMedia
+class FaqType extends Model implements Auditable, HasMedia
 {
     use HasFactory, CommonModelTrait, \OwenIt\Auditing\Auditable, InteractsWithMedia;
 
-    protected $fillable = ['faq_type_id', 'question', 'answer', 'slug', 'status', 'sort'];
+    protected $fillable = ['type', 'slug', 'status', 'sort'];
 
-    public $translatable = ['question', 'answer'];
+    public $translatable = ['type',];
 
-    protected $casts = ['question' => 'array'];
+    protected $casts = ['type' => 'array'];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom(function ($model, $locale = 'en') {
-                return "{$model->getTranslation('question', 'en')}";
+                return "{$model->getTranslation('type', 'en')}";
             })
             ->saveSlugsTo('slug');
     }
@@ -34,8 +34,8 @@ class Faq extends Model implements Auditable, HasMedia
         $query->where('status', $status);
     }
 
-    public function faqType()
+    public function faqs()
     {
-        return $this->belongsTo(FaqType::class);
+        return $this->hasMany(Faq::class);
     }
 }

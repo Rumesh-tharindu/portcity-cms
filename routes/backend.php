@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\About\FaqController;
+use App\Http\Controllers\Admin\About\FaqTypeController;
 use App\Http\Controllers\Admin\About\MemberController;
 use App\Http\Controllers\Admin\Activity\ActivityController;
 use App\Http\Controllers\Admin\CustomTable\CustomTableController;
@@ -60,7 +61,12 @@ Route::middleware(['auth', 'verified', 'permission'])->group(function () {
 
     Route::group(['prefix' => 'about', 'as' => 'about.'], function () {
 
-        Route::resource('faq', FaqController::class)->except('show');
+        Route::group(['prefix' => 'faq', 'as' => 'faq.'], function () {
+
+            Route::resource('type', FaqTypeController::class)->except('show');
+            Route::resource('faq', FaqController::class)->except('show');
+        });
+
 
         Route::resource('member', MemberController::class)->except('show');
 

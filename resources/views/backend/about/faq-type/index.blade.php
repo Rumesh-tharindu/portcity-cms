@@ -1,4 +1,4 @@
-@extends('backend.theme.master', ['page'=>'Manage FAQs'])
+@extends('backend.theme.master', ['page'=>'Manage FAQ Types'])
 
 @section('content')
 
@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>FAQs</h1>
+                    <h1>FAQ Types</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item active">FAQs</li>
+                        <li class="breadcrumb-item active">FAQ Types</li>
                     </ol>
                 </div>
             </div>
@@ -29,12 +29,11 @@
 
                 <div class="card">
 
-                    @if (Route::has('admin.about.faq.faq.create'))
+                    @if (Route::has('admin.about.faq.type.create'))
                     <div class="row">
                         <div class="col-md-12" align="left">
                             <div class="card-header">
-                                <a class="btn btn-primary button-rectangle"
-                                    href="{{route('admin.about.faq.faq.create')}}"><i
+                                <a class="btn btn-primary button-rectangle" href="{{route('admin.about.faq.type.create')}}"><i
                                         class="fa fa-plus-circle"></i>&nbsp; Add New</a>
                             </div>
                         </div>
@@ -49,8 +48,6 @@
                                     <th>Id</th>
 
                                     <th>Type</th>
-                                    <th>Question</th>
-                                    <th>Answer</th>
                                     <th>Sort</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -79,12 +76,10 @@
 <script>
     drawDataTable(
         ".datatable",
-        "{{ route('admin.about.faq.faq.index') }}",
+        "{{ route('admin.about.faq.type.index') }}",
         [
             {data: 'id', name: 'id'},
-            {data: 'faq_type.type.en', name: 'faq_type.type.en'},
-            {data: 'question.en', name: 'question.en'},
-            {data: 'answer.en', name: 'answer.en'},
+            {data: 'type.en', name: 'type.en'},
             {data: 'sort', name: 'sort'},
             {data: 'status', name: 'status', orderable: false, searchable: false},
             {data: 'action', name: 'action', orderable: false, searchable: false},

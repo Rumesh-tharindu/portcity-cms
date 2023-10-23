@@ -9,7 +9,7 @@ class FaqRepository extends Repository
 {
     public function dataTable()
     {
-        return DataTables::of($this->model->orderBy('sort')->get())
+        return DataTables::of($this->model::with('faqType')->orderBy('sort')->get())
             ->editColumn('status', function ($model) {
                 return view('backend.about.faq.includes.table-status', ['model' => $model]);
             })

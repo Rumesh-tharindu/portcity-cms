@@ -3,22 +3,19 @@
 namespace App\Http\Controllers\Admin\About;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\About\Faq\StoreRequest;
-use App\Http\Requests\Admin\About\Faq\UpdateRequest;
-use App\Models\Faq;
+use App\Http\Requests\Admin\About\FaqType\StoreRequest;
+use App\Http\Requests\Admin\About\FaqType\UpdateRequest;
 use App\Models\FaqType;
-use App\Repositories\About\FaqRepository;
 use App\Repositories\About\FaqTypeRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class FaqController extends Controller
+class FaqTypeController extends Controller
 {
 
-    public function __construct(Faq $model, FaqType $faqType)
+    public function __construct(FaqType $model)
     {
-        $this->model = new FaqRepository($model);
-        $this->faqType = new FaqTypeRepository($faqType);
+        $this->model = new FaqTypeRepository($model);
     }
 
     public function index(Request $request)
@@ -27,14 +24,13 @@ class FaqController extends Controller
             return $this->model->dataTable();
         }
 
-        return view('backend.about.faq.index');
+        return view('backend.about.faq-type.index');
     }
 
     public function create()
     {
-        $data['types'] =  $this->faqType->active()->pluck('type', 'id');
 
-        return view('backend.about.faq.create', $data);
+        return view('backend.about.faq-type.create');
     }
 
     public function store(StoreRequest $request)
@@ -67,9 +63,7 @@ class FaqController extends Controller
     {
         $data['model'] = $this->model->show($id);
 
-        $data['types'] =  $this->faqType->active()->pluck('type', 'id');
-
-        return view('backend.about.faq.edit', $data);
+        return view('backend.about.faq-type.edit', $data);
     }
 
     public function update(UpdateRequest $request, $id)

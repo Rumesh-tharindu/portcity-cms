@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'faq_type_id' => 'required',
             'question.en' => 'required|string|max:200',
             'answer.en' => 'required',
             'sort' => 'sometimes|numeric|min:0',

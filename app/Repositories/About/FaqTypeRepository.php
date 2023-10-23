@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Repositories\About;
+
+use App\Repositories\Repository;
+use Yajra\DataTables\DataTables;
+
+class FaqTypeRepository extends Repository
+{
+    public function dataTable()
+    {
+        return DataTables::of($this->model->orderBy('sort')->get())
+            ->editColumn('status', function ($model) {
+                return view('backend.about.faq-type.includes.table-status', ['model' => $model]);
+            })
+            ->addColumn('action', function ($model) {
+                return view('backend.about.faq-type.includes.table-actions', ['model' => $model]);
+            })->toJson();
+    }
+
+    public function active($status = true)
+    {
+        return $this->getModel()
+        ->active($status)->orderBy('sort')->orderBy('type')
+        ->get();
+    }
+
+    public function filter($status = true)
+    {
+        return $this->getModel()::active($status)->with(['faqs' => function($q){
+            $q->active()->orderBy('sort');
+        }])->when(request('search'), function ($q) {
+            $q->where(function ($q) {
+                $q->where('type', 'REGEXP', request('search'));
+            });
+        })
+            ->orderBy('sort')->paginate(request('per_page'));
+    }
+
+}

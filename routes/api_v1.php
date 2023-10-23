@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\ActivityController;
 use App\Http\Controllers\Api\V1\ContactController;
 use App\Http\Controllers\Api\V1\EventController;
 use App\Http\Controllers\Api\V1\FaqController;
+use App\Http\Controllers\Api\V1\FaqTypeController;
 use App\Http\Controllers\Api\V1\GalleryController;
 use App\Http\Controllers\Api\V1\MasterPlanController;
 use App\Http\Controllers\Api\V1\MemberController;
@@ -37,6 +38,7 @@ Route::get('/plot/{slug}', [PlotController::class, 'show']);
 Route::get('/regulations', RegulationController::class);
 
 Route::get('/faqs', FaqController::class);
+Route::get('/faq-types', FaqTypeController::class);
 
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::get('/activity/{slug}', [ActivityController::class, 'show']);

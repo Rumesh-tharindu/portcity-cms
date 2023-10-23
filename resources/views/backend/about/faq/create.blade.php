@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard.index') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('admin.about.faq.index') }}">FAQs</a>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.about.faq.faq.index') }}">FAQs</a>
                         </li>
                         <li class="breadcrumb-item active">Create</li>
                     </ol>
@@ -31,7 +31,7 @@
             @include('backend.about.faq.includes.form', [
             'model' => null,
             'route' => [
-            'route' => ['admin.about.faq.store'],
+            'route' => ['admin.about.faq.faq.store'],
             'method' => 'post',
             'class' => 'ajax-form',
             'files' => true,

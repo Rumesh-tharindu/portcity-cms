@@ -4,6 +4,19 @@
 
     {{ Form::model($model, $route) }}
 
+    <div class="row">
+
+        <div class="col-xs-12 col-md-6 form-group">
+            {!! Form::label('type_*', null, ['class' => 'control-label']) !!}
+            {!! Form::select('faq_type_id', $types, null, [
+            'placeholder' => 'Please select',
+            'class' => 'form-control select2',
+            ]) !!}
+            {!! errorMessageAjax('faq_type_id') !!}
+        </div>
+
+    </div>
+
     <div class="tab-content">
 
         <div class="tab-pane fade active show" id="custom-tabs-en" role="tabpanel" aria-labelledby="custom-tabs-en-tab">
@@ -14,14 +27,14 @@
 
 
     <div class="row">
-      <div class="col-xs-12 col-md-6 form-group">
-        {!! Form::label('sort_*') !!}
-        {!! Form::number('sort', null, [
-        'class' => ['form-control'],
-        'min' => 0,
-        ]) !!}
-        {!! errorMessageAjax('sort') !!}
-      </div>
+        <div class="col-xs-12 col-md-6 form-group">
+            {!! Form::label('sort_*') !!}
+            {!! Form::number('sort', null, [
+            'class' => ['form-control'],
+            'min' => 0,
+            ]) !!}
+            {!! errorMessageAjax('sort') !!}
+        </div>
     </div>
 
     <div class="row">
@@ -41,6 +54,6 @@
 
 
 @push('scripts')
-@include('backend.theme.components.ajax-form-submit', [ 'redirectUrl' => 'admin.about.faq.index' ])
+@include('backend.theme.components.ajax-form-submit', [ 'redirectUrl' => 'admin.about.faq.faq.index' ])
 @include('backend.theme.components.ajax-media-delete')
 @endpush

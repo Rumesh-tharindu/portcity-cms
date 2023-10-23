@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\About\Faq;
+namespace App\Http\Requests\Admin\About\FaqType;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,9 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'faq_type_id' => 'required',
-            'question.en' => 'required|string|max:200',
-            'answer.en' => 'required',
+            'type.en' => 'required|string|max:200',
             'sort' => 'sometimes|numeric|min:0',
         ];
     }
@@ -35,9 +33,8 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'question.en.required' => 'The question field is required.',
-            'question.en.max' => 'The question must not be greater than :max characters.',
-            'answer.en.required' => 'The answer field is required.',
+            'type.en.required' => 'The type field is required.',
+            'type.en.max' => 'The question must not be greater than :max characters.',
         ];
     }
 }
