@@ -54,6 +54,7 @@
 
 
 @push('scripts')
+@include('backend.theme.components.editor')
 @include('backend.theme.components.ajax-form-submit', [ 'redirectUrl' => 'admin.about.faq.faq.index' ])
 @include('backend.theme.components.ajax-media-delete')
 @endpush

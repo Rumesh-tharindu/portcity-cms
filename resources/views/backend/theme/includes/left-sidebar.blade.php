@@ -240,6 +240,19 @@
         </li>
         @endcan
 
+        @can('admin.inquiry.index')
+        <li class="nav-item">
+            <a href="{{ route('admin.inquiry.index') }}"
+                class="nav-link @if (request()->route()->named('admin.inquiry.*')) active @endif">
+                <i class="nav-icon fas fa-paper-plane" aria-hidden="true"></i>
+                <p>
+                    Manage Inquiries
+
+                </p>
+            </a>
+        </li>
+        @endcan
+
         @can('admin.change-password.edit')
         <li class="nav-item">
             <a href="{{ route('admin.change-password.edit') }}"

@@ -6,7 +6,8 @@ $localeLabelOptional = getLocaleLabel($locale, false);
 <div class="row">
     <div class="col-xs-12 col-md-12 form-group">
         {!! Form::label("question_$localeLabel") !!}
-        {!! Form::text("question[$locale]", getTranslation($model, $locale, "question"), ["class" => ["form-control"]]) !!}
+        {!! Form::text("question[$locale]", getTranslation($model, $locale, "question"), ["class" => ["form-control"]])
+        !!}
         {!! errorMessageAjax("question.$locale") !!}
     </div>
 
@@ -15,7 +16,7 @@ $localeLabelOptional = getLocaleLabel($locale, false);
     <div class="col-xs-12 col-md-12 form-group">
         {!! Form::label("answer_$localeLabel") !!}
         {!! Form::textarea("answer[$locale]", getTranslation($model, $locale, "answer"), [
-        "class" => ["form-control"],
+        "class" => ["form-control summernote"],
         "rows" => 5,
         ]) !!}
         {!! errorMessageAjax("answer.$locale") !!}
